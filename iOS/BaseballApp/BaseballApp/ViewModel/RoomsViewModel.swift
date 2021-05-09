@@ -8,11 +8,15 @@
 import Foundation
 
 class RoomsViewModel {
-    @Published var rooms: RoomResponse = RoomResponse(rooms: [])
+    @Published var rooms: RoomResponse = RoomResponse(data: []) {
+        didSet {
+            //print(rooms)
+        }
+    }
     let roomsUseCase = RoomsUseCase()
     
     func load() {
-        guard let url = Endpoint.url(path: "/room/list") else { return }
+        guard let url = Endpoint.url(path: Endpoint.Path.gameList) else { return }
         roomsUseCase.start(url: url)
     }
 }

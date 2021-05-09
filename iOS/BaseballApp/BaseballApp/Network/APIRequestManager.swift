@@ -23,7 +23,7 @@ class APIRequestManager {
         URLSession.shared.dataTaskPublisher(for: request)
             .map(\.data)
             .decode(type: RoomResponse.self, decoder: JSONDecoder())
-            .replaceError(with: RoomResponse(rooms: []))
+            .replaceError(with: RoomResponse(data: []))
             .assign(to: \.rooms, on: RoomsViewModel())
             .store(in: &self.cancelBag)
     }
@@ -40,10 +40,15 @@ class APIRequestManager {
 }
 
 struct Endpoint {
+    enum Path {
+        static let gameList = "/game/list"
+    }
+
     static func url(path: String) -> URL? {
         var components = URLComponents()
-        components.scheme = "https"
-        components.host = "api.github.com"
+        components.scheme = "http"
+        components.host = "52.78.19.43"
+        components.port = 8080
         components.path = path
         return components.url
     }
