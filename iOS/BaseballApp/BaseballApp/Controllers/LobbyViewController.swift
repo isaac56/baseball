@@ -16,40 +16,20 @@ class LobbyViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        roomsTableView.dataSource = self
         
         viewModel = RoomsViewModel()
-        
-        bind()
-        viewModel.load()
-        
-        //print(viewModel.rooms)
-    }
-    
-    func bind() {
-        print("?")
-        viewModel?.$rooms
-            .receive(on: DispatchQueue.main)
-            .sink(
-                receiveCompletion: { (completion) in
-                    switch completion {
-                    case .finished:
-                        print(self.viewModel.rooms)
-                        break
-                    case .failure(let error):
-                        print(error.localizedDescription)
-                    }
-                },
-                receiveValue: { [weak self] _ in
-                    print(self?.viewModel.rooms)
-                    self?.roomsTableView.reloadData()
-                })
-            .store(in: &self.cancelBag)
+        viewModel.load {
+            DispatchQueue.main.async {
+                self.roomsTableView.reloadData()
+            }
+        }
     }
 }
 
 extension LobbyViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return viewModel.rooms.data.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

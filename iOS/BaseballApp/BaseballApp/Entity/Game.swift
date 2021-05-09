@@ -7,6 +7,10 @@
 
 import Foundation
 
+struct GameResponse: Decodable {
+    let data: Game
+}
+
 struct Game: Decodable {
     let home: Team
     let away: Team

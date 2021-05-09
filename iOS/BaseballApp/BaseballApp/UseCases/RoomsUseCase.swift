@@ -6,11 +6,12 @@
 //
 
 import Foundation
+import Combine
 
 class RoomsUseCase {
     let apiRequestManager = APIRequestManager()
     
-    func start(url: URL) {
-        apiRequestManager.fetchRooms(url: url, method: .get)
+    func start(url: URL, to assign: RoomsViewModel) -> AnyPublisher<RoomResponse, Error> {
+        return apiRequestManager.fetchRooms(url: url, method: .get)
     }
 }
