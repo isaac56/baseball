@@ -12,6 +12,6 @@ class RoomsUseCase {
     let apiRequestManager = APIRequestManager()
     
     func start(url: URL, to assign: RoomsViewModel) -> AnyPublisher<RoomResponse, Error> {
-        return apiRequestManager.fetchRooms(url: url, method: .get)
+        return apiRequestManager.fetch(url: url, method: .get)
     }
 }

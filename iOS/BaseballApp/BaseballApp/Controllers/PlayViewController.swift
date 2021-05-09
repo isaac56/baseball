@@ -20,9 +20,9 @@ class PlayViewController: UIViewController {
     
     var cancelBag = Set<AnyCancellable>()
     var count: Int = 0
-    var viewModel: GameViewModel? {
+    var viewModel: GameViewModel! {
         didSet {
-            count = viewModel?.game?.pitcherHistory.count ?? 0
+            count = viewModel?.game?.data.pitch_histories.count ?? 0
         }
     }
     
@@ -40,19 +40,14 @@ class PlayViewController: UIViewController {
         
         viewModel = GameViewModel()
         configureUI()
+        viewModel.load { game in
+            DispatchQueue.main.async { [weak self] in
+                self?.scoreHeaderView.configureAway(score: game.away_team.score)
+                self?.scoreHeaderView.configureHome(score: game.home_team.score)
+            }
+        }
     }
-    
-    // MARK: - Private Functions
-    private func bind() {
-        viewModel?.$game
-            .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { [weak self] game in
-                self?.scoreHeaderView.configureAway(score: game?.away.score ?? 0)
-                self?.scoreHeaderView.configureHome(score: game?.home.score ?? 0)
-            })
-            .store(in: &self.cancelBag)
-    }
-    
+
     private func configureUI() {
         guard let groundView = Bundle.main.loadNibNamed(GroundView.identifier,
                                                         owner: self,
@@ -79,12 +74,12 @@ class PlayViewController: UIViewController {
 
 extension PlayViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel?.game?.pitcherHistory.count ?? 0
+        return viewModel?.game?.data.pitch_histories.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PitcherRecordTableViewCell.identifier, for: indexPath) as! PitcherRecordTableViewCell
-        cell.backgroundColor = .systemRed
+        
         return cell
     }
 }

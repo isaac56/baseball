@@ -18,19 +18,11 @@ class APIRequestManager {
         return request
     }
     
-    func fetchRooms(url: URL, method: HTTPMethod, httpBody: Data? = nil) -> AnyPublisher<RoomResponse, Error> {
+    func fetch<T: Decodable>(url: URL, method: HTTPMethod, httpBody: Data? = nil) -> AnyPublisher<T, Error> {
         let request = createRequest(url: url, method: method)
         return URLSession.shared.dataTaskPublisher(for: request)
             .map(\.data)
-            .decode(type: RoomResponse.self, decoder: JSONDecoder())
-            .eraseToAnyPublisher()
-    }
-    
-    func fetchGame(url: URL, method: HTTPMethod, httpBody: Data? = nil) -> AnyPublisher<GameResponse, Error> {
-        let request = createRequest(url: url, method: method)
-        return URLSession.shared.dataTaskPublisher(for: request)
-            .map(\.data)
-            .decode(type: GameResponse.self, decoder: JSONDecoder())
+            .decode(type: T.self, decoder: JSONDecoder())
             .eraseToAnyPublisher()
     }
 }
