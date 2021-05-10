@@ -8,11 +8,19 @@
 import UIKit
 
 class GroundView: UIView {
-    enum Constant {
-        static let infieldSquareLineWidth: CGFloat = 5.0
-        static let baseLineWidth: CGFloat = 1.0
-        static let padding: CGFloat = 50.0
-        static let baseDiagonalLength: CGFloat = 30.0
+    enum Constants {
+        enum InfieldSquare {
+            static let lineWidth: CGFloat = 5.0
+            static let padding: CGFloat = 50.0
+        }
+        enum HomePlate {
+            static let topTriangleHeight: CGFloat = 15.0
+            static let bottomSquareLength: CGFloat = 30.0
+        }
+        enum Base {
+            static let lineWidth: CGFloat = 1.0
+            static let diagonalLength: CGFloat = 30.0
+        }
     }
     
     private let infieldSquareLayer = CAShapeLayer()
@@ -34,32 +42,32 @@ class GroundView: UIView {
     }
     
     private func configureInfieldSquareLayer() {
-        infieldSquareLayer.frame = CGRect(x: bounds.minX + Constant.padding,
-                                          y: bounds.minY + Constant.padding,
-                                          width: bounds.width - (Constant.padding * 2),
-                                          height: bounds.height - (Constant.padding * 2))
+        infieldSquareLayer.frame = CGRect(x: bounds.minX + Constants.InfieldSquare.padding,
+                                          y: bounds.minY + Constants.InfieldSquare.padding,
+                                          width: bounds.width - (Constants.InfieldSquare.padding * 2),
+                                          height: bounds.height - (Constants.InfieldSquare.padding * 2))
         layer.addSublayer(infieldSquareLayer)
         infieldSquareLayer.strokeColor = UIColor.systemGray.cgColor
         infieldSquareLayer.fillColor = UIColor.clear.cgColor
-        infieldSquareLayer.lineWidth = Constant.infieldSquareLineWidth
+        infieldSquareLayer.lineWidth = Constants.InfieldSquare.lineWidth
     }
     
     private func configureHomePlateLayer() {
-        homePlateLayer.frame = CGRect(x: bounds.midX - 15.0,
-                                      y: bounds.maxY - 70.0,
-                                      width: 30.0,
-                                      height: 45.0)
+        homePlateLayer.frame = CGRect(x: bounds.midX - Constants.HomePlate.bottomSquareLength / 2,
+                                      y: bounds.maxY - (Constants.InfieldSquare.padding / 2) - Constants.HomePlate.topTriangleHeight - Constants.HomePlate.bottomSquareLength,
+                                      width: Constants.HomePlate.bottomSquareLength,
+                                      height: Constants.HomePlate.topTriangleHeight + Constants.HomePlate.bottomSquareLength)
         layer.addSublayer(homePlateLayer)
         homePlateLayer.fillColor = UIColor.white.cgColor
     }
     
     private func configureLayerForBases() {
-        firstBaseLayer = createBaseLayer(origin: CGPoint(x: bounds.maxX - Constant.padding - Constant.baseDiagonalLength / 2,
-                                                      y: bounds.midY - Constant.baseDiagonalLength / 2))
-        secondBaseLayer = createBaseLayer(origin: CGPoint(x: bounds.midX - Constant.baseDiagonalLength / 2,
-                                                          y: bounds.minY + Constant.padding - Constant.baseDiagonalLength / 2))
-        thirdBaseLayer = createBaseLayer(origin: CGPoint(x: bounds.minX + Constant.padding - Constant.baseDiagonalLength / 2,
-                                                         y: bounds.midY - Constant.baseDiagonalLength / 2))
+        firstBaseLayer = createBaseLayer(origin: CGPoint(x: bounds.maxX - Constants.InfieldSquare.padding - Constants.Base.diagonalLength / 2,
+                                                         y: bounds.midY - Constants.Base.diagonalLength / 2))
+        secondBaseLayer = createBaseLayer(origin: CGPoint(x: bounds.midX - Constants.Base.diagonalLength / 2,
+                                                          y: bounds.minY + Constants.InfieldSquare.padding - Constants.Base.diagonalLength / 2))
+        thirdBaseLayer = createBaseLayer(origin: CGPoint(x: bounds.minX + Constants.InfieldSquare.padding - Constants.Base.diagonalLength / 2,
+                                                         y: bounds.midY - Constants.Base.diagonalLength / 2))
         
         infieldSquareLayer.path = createRhombusPath(for: infieldSquareLayer)
         homePlateLayer.path = createPlatePath(for: homePlateLayer)
@@ -81,10 +89,10 @@ class GroundView: UIView {
     private func createPlatePath(for layer: CAShapeLayer) -> CGPath {
         let platePath = UIBezierPath()
         platePath.move(to: CGPoint(x: layer.bounds.midX, y: layer.bounds.minY))
-        platePath.addLine(to: CGPoint(x: layer.bounds.minX, y: layer.bounds.minY + 15.0))
-        platePath.addLine(to: CGPoint(x: layer.bounds.minX, y: layer.bounds.minY + 15.0 + 30.0))
-        platePath.addLine(to: CGPoint(x: layer.bounds.midX + 15.0, y: layer.bounds.minY + 15.0 + 30.0))
-        platePath.addLine(to: CGPoint(x: layer.bounds.midX + 15.0, y: layer.bounds.minY + 15.0))
+        platePath.addLine(to: CGPoint(x: layer.bounds.minX, y: layer.bounds.minY + Constants.HomePlate.topTriangleHeight))
+        platePath.addLine(to: CGPoint(x: layer.bounds.minX, y: layer.bounds.minY + Constants.HomePlate.topTriangleHeight + Constants.HomePlate.bottomSquareLength))
+        platePath.addLine(to: CGPoint(x: layer.bounds.midX + Constants.HomePlate.bottomSquareLength / 2, y: layer.bounds.minY + Constants.HomePlate.topTriangleHeight + Constants.HomePlate.bottomSquareLength))
+        platePath.addLine(to: CGPoint(x: layer.bounds.midX + Constants.HomePlate.bottomSquareLength / 2, y: layer.bounds.minY + Constants.HomePlate.topTriangleHeight))
         platePath.close()
         return platePath.cgPath
     }
@@ -92,15 +100,15 @@ class GroundView: UIView {
     private func createBaseLayer(origin: CGPoint) -> CAShapeLayer {
         let baseLayer = CAShapeLayer()
         baseLayer.frame = CGRect(origin: origin,
-                                 size: CGSize(width: Constant.baseDiagonalLength, height: Constant.baseDiagonalLength))
+                                 size: CGSize(width: Constants.Base.diagonalLength, height: Constants.Base.diagonalLength))
         layer.addSublayer(baseLayer)
         baseLayer.strokeColor = UIColor.systemGray.cgColor
         baseLayer.fillColor = UIColor.white.cgColor
-        baseLayer.lineWidth = Constant.baseLineWidth
+        baseLayer.lineWidth = Constants.Base.lineWidth
         return baseLayer
     }
     
     @IBAction func pitchButtonPressed(_ sender: UIButton) {
-            
+        
     }
 }
