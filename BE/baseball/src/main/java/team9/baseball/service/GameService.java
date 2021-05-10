@@ -42,10 +42,10 @@ public class GameService {
         Team awayTeam = getTeam(game.getAwayTeamId());
         Team homeTeam = getTeam(game.getHomeTeamId());
 
-        //현재 내가 공격팀이면 공을 던질 수 없다.
-        if (game.getCurrentHalves() == user.getCurrentGameVenue().getHalves()) {
-            throw new BadStatusException(userId + "번 사용자는 현재 공격팀입니다.");
-        }
+//        //현재 내가 공격팀이면 공을 던질 수 없다.
+//        if (game.getCurrentHalves() == user.getCurrentGameVenue().getHalves()) {
+//            throw new BadStatusException(userId + "번 사용자는 현재 공격팀입니다.");
+//        }
 
         switch (pitchResult) {
             case HIT:
@@ -89,6 +89,13 @@ public class GameService {
 
         Game game = new Game(awayTeam, homeTeam);
         game = gameRepository.save(game);
+
+        //테스트용 코드
+        User testUser = getUser(2l);
+        testUser.setCurrentGameId(game.getId());
+        testUser.setCurrentGameVenue(Venue.AWAY);
+        userRepository.save(testUser);
+        /////////
     }
 
     public void joinGame(long userId, long gameId, Venue venue) {
