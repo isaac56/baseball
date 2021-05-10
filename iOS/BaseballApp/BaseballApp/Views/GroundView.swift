@@ -50,6 +50,8 @@ class GroundView: UIView {
         infieldSquareLayer.strokeColor = UIColor.systemGray.cgColor
         infieldSquareLayer.fillColor = UIColor.clear.cgColor
         infieldSquareLayer.lineWidth = Constants.InfieldSquare.lineWidth
+        
+        infieldSquareLayer.path = createRhombusPath(for: infieldSquareLayer)
     }
     
     private func configureHomePlateLayer() {
@@ -59,6 +61,8 @@ class GroundView: UIView {
                                       height: Constants.HomePlate.topTriangleHeight + Constants.HomePlate.bottomSquareLength)
         layer.addSublayer(homePlateLayer)
         homePlateLayer.fillColor = UIColor.white.cgColor
+        
+        homePlateLayer.path = createPlatePath(for: homePlateLayer)
     }
     
     private func configureLayerForBases() {
@@ -69,8 +73,6 @@ class GroundView: UIView {
         thirdBaseLayer = createBaseLayer(origin: CGPoint(x: bounds.minX + Constants.InfieldSquare.padding - Constants.Base.diagonalLength / 2,
                                                          y: bounds.midY - Constants.Base.diagonalLength / 2))
         
-        infieldSquareLayer.path = createRhombusPath(for: infieldSquareLayer)
-        homePlateLayer.path = createPlatePath(for: homePlateLayer)
         firstBaseLayer.path = createRhombusPath(for: firstBaseLayer)
         secondBaseLayer.path = createRhombusPath(for: secondBaseLayer)
         thirdBaseLayer.path = createRhombusPath(for: thirdBaseLayer)
