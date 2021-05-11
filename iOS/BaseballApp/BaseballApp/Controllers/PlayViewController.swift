@@ -41,6 +41,7 @@ class PlayViewController: UIViewController {
             .sink { [weak self] response in
                 guard let game = response?.data else { return }
                 guard let strongSelf = self else { return }
+                strongSelf.scoreHeaderView.configureTeamNames(away: game.awayTeam.name, home: game.homeTeam.name)
                 strongSelf.scoreHeaderView.configureAway(score: game.awayTeam.score)
                 strongSelf.scoreHeaderView.configureHome(score: game.homeTeam.score)
                 strongSelf.currentPlayerView.configure(batter: game.batter, status: game.batterStatus)
@@ -80,7 +81,6 @@ class PlayViewController: UIViewController {
         NSLayoutConstraint.activate([
             groundView.heightAnchor.constraint(equalToConstant: view.frame.width),
             currentPlayerView.heightAnchor.constraint(equalToConstant: Constant.currentPlayerViewHeight),
-            pitcherHistoryTableView.heightAnchor.constraint(equalToConstant: Constant.tableRowHeight * CGFloat(500)),
             pitcherHistoryTableView.leadingAnchor.constraint(equalTo: playInformationStackView.leadingAnchor),
             pitcherHistoryTableView.trailingAnchor.constraint(equalTo: playInformationStackView.trailingAnchor),
         ])
