@@ -33,7 +33,7 @@ struct TeamInfo: Decodable {
     }
 }
 
-struct BattingHistory: Decodable {
+struct BattingHistory: Decodable, Hashable  {
     let uniformNumber: Int
     let name: String
     let appearCount: Int
@@ -50,5 +50,12 @@ struct BattingHistory: Decodable {
         case outCount = "out_count"
         case hitRatio = "hit_ratio"
         case isPlaying = "playing"
+    }
+    
+    static func == (lhs: BattingHistory, rhs: BattingHistory) -> Bool {
+        lhs.name == rhs.name
+    }
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
     }
 }

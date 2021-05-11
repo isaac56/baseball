@@ -222,6 +222,9 @@
                                     <segment title="Away"/>
                                     <segment title="Home"/>
                                 </segments>
+                                <connections>
+                                    <action selector="selectTeam:" destination="owF-YY-FIO" eventType="valueChanged" id="xBG-MZ-my9"/>
+                                </connections>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="LTu-Ew-p9F">
                                 <rect key="frame" x="0.0" y="264" width="414" height="549"/>
@@ -254,6 +257,7 @@
                     <tabBarItem key="tabBarItem" title="Scores" image="chart.bar.xaxis" catalog="system" id="Wz8-Kk-c4G"/>
                     <connections>
                         <outlet property="battingHistory" destination="LTu-Ew-p9F" id="qQz-bY-5Ph"/>
+                        <outlet property="segmentedTeam" destination="uLY-hA-9tb" id="NNl-wJ-Q2E"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eeF-n3-4he" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
