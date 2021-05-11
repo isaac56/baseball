@@ -12,7 +12,7 @@ class APIRequestManager {
     
     private let decoder = JSONDecoder()
     
-    private func createRequest(url: URL, method: HTTPMethod, httpBody: Data? = nil) -> URLRequest {
+    private func createRequest(url: URL, method: HTTPMethod, httpBody: Data?) -> URLRequest {
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
         request.httpBody = httpBody
@@ -20,23 +20,12 @@ class APIRequestManager {
         return request
     }
   
-    func fetch<T: Decodable>(url: URL, method: HTTPMethod, httpBody: Data? = nil) -> AnyPublisher<T, Error> {
-        let request = createRequest(url: url, method: method)
+    func fetch<T: Decodable>(url: URL, method: HTTPMethod, bodyData: Data? = nil) -> AnyPublisher<T, Error> {
+        let request = createRequest(url: url, method: method, httpBody: bodyData)
         return URLSession.shared.dataTaskPublisher(for: request)
             .map(\.data)
             .decode(type: T.self, decoder: decoder)
             .eraseToAnyPublisher()
-    }
-    
-    func fetch(url: URL, method: HTTPMethod, httpBody: Data? = nil) {
-        var request = createRequest(url: url, method: method)
-        request.httpBody = httpBody
-        URLSession.shared.dataTask(with: request) { _, _, error in
-            guard error == nil else {
-                print(error?.localizedDescription)
-                return
-            }
-        }.resume()
     }
 }
 

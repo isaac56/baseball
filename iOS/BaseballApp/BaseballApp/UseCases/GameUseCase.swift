@@ -15,9 +15,13 @@ class GameUseCase {
         return apiRequestManager.fetch(url: url, method: .get)
     }
     
-    func pitch(url: URL) {
+    func pitch(url: URL) -> AnyPublisher<PitchResult, Error> {
         let result = ["pitch_result": "STRIKE"]
         let data = try! JSONSerialization.data(withJSONObject: result, options: .prettyPrinted)
-        apiRequestManager.fetch(url: url, method: .post, httpBody: data)
+        return apiRequestManager.fetch(url: url, method: .post, bodyData: data)
     }
+}
+
+struct PitchResult: Decodable {
+    let error: String?
 }

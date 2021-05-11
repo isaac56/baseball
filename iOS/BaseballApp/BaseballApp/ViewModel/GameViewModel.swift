@@ -31,11 +31,18 @@ class GameViewModel {
         .store(in: &cancelBag)
     }
     
-    func request() {
-        guard let url = Endpoint.url(path: Endpoint.Path.pitchResult) else { return }
-        gameUseCase.pitch(url: url)
-        
+    func requestPitch() {
         guard let handler = handler else { return }
-        load(completionHandler: handler)
+        guard let url = Endpoint.url(path: Endpoint.Path.pitchResult) else { return }
+        let publisher = gameUseCase.pitch(url: url)
+        publisher.sink { [weak self] (completion) in
+            switch completion {
+            case .finished:
+                self?.load(completionHandler: handler)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        } receiveValue: { _ in }
+        .store(in: &cancelBag)
     }
 }

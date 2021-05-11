@@ -102,6 +102,6 @@ extension PlayViewController: UITableViewDataSource {
 
 extension PlayViewController: GroundViewDelegate {
     func pitch() {
-        viewModel.request()
+        viewModel.requestPitch()
     }
 }
