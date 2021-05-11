@@ -90,11 +90,16 @@ class GroundView: UIView {
     
     private func createPlatePath(for layer: CAShapeLayer) -> CGPath {
         let platePath = UIBezierPath()
-        platePath.move(to: CGPoint(x: layer.bounds.midX, y: layer.bounds.minY))
-        platePath.addLine(to: CGPoint(x: layer.bounds.minX, y: layer.bounds.minY + Constants.HomePlate.topTriangleHeight))
-        platePath.addLine(to: CGPoint(x: layer.bounds.minX, y: layer.bounds.minY + Constants.HomePlate.topTriangleHeight + Constants.HomePlate.bottomSquareLength))
-        platePath.addLine(to: CGPoint(x: layer.bounds.midX + Constants.HomePlate.bottomSquareLength / 2, y: layer.bounds.minY + Constants.HomePlate.topTriangleHeight + Constants.HomePlate.bottomSquareLength))
-        platePath.addLine(to: CGPoint(x: layer.bounds.midX + Constants.HomePlate.bottomSquareLength / 2, y: layer.bounds.minY + Constants.HomePlate.topTriangleHeight))
+        platePath.move(to: CGPoint(x: layer.bounds.midX,
+                                   y: layer.bounds.minY))
+        platePath.addLine(to: CGPoint(x: layer.bounds.minX,
+                                      y: layer.bounds.minY + Constants.HomePlate.topTriangleHeight))
+        platePath.addLine(to: CGPoint(x: layer.bounds.minX,
+                                      y: layer.bounds.minY + Constants.HomePlate.topTriangleHeight + Constants.HomePlate.bottomSquareLength))
+        platePath.addLine(to: CGPoint(x: layer.bounds.midX + Constants.HomePlate.bottomSquareLength / 2,
+                                      y: layer.bounds.minY + Constants.HomePlate.topTriangleHeight + Constants.HomePlate.bottomSquareLength))
+        platePath.addLine(to: CGPoint(x: layer.bounds.midX + Constants.HomePlate.bottomSquareLength / 2,
+                                      y: layer.bounds.minY + Constants.HomePlate.topTriangleHeight))
         platePath.close()
         return platePath.cgPath
     }
@@ -102,7 +107,8 @@ class GroundView: UIView {
     private func createBaseLayer(origin: CGPoint) -> CAShapeLayer {
         let baseLayer = CAShapeLayer()
         baseLayer.frame = CGRect(origin: origin,
-                                 size: CGSize(width: Constants.Base.diagonalLength, height: Constants.Base.diagonalLength))
+                                 size: CGSize(width: Constants.Base.diagonalLength,
+                                              height: Constants.Base.diagonalLength))
         layer.addSublayer(baseLayer)
         baseLayer.strokeColor = UIColor.systemGray.cgColor
         baseLayer.fillColor = UIColor.white.cgColor
