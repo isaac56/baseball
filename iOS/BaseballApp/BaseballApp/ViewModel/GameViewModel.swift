@@ -12,9 +12,8 @@ class GameViewModel {
     @Published var game: GameResponse?
     let gameUseCase = GameUseCase()
     var cancelBag = Set<AnyCancellable>()
-    var handler: ((Game) -> Void)?
     
-    func load(completionHandler: @escaping (Game) -> Void) {
+    func load() {
         guard let url = Endpoint.url(path: Endpoint.Path.gameStatus) else { return }
         let publisher = gameUseCase.start(url: url)
         publisher.sink { (completion) in
@@ -26,19 +25,17 @@ class GameViewModel {
             }
         } receiveValue: { (response) in
             self.game = response
-            completionHandler(response.data)
         }
         .store(in: &cancelBag)
     }
     
     func requestPitch() {
-        guard let handler = handler else { return }
         guard let url = Endpoint.url(path: Endpoint.Path.pitchResult) else { return }
         let publisher = gameUseCase.pitch(url: url)
         publisher.sink { [weak self] (completion) in
             switch completion {
             case .finished:
-                self?.load(completionHandler: handler)
+                self?.load()
             case .failure(let error):
                 print(error.localizedDescription)
             }

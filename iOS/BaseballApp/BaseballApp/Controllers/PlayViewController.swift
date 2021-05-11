@@ -22,6 +22,7 @@ class PlayViewController: UIViewController {
     var groundView: GroundView!
     var count: Int = 0
     var viewModel: GameViewModel = GameViewModel()
+    var cancelBag = Set<AnyCancellable>()
     
     private let pitcherHistoryTableView: UITableView = {
         let tableView = UITableView()
@@ -34,8 +35,11 @@ class PlayViewController: UIViewController {
         super.viewDidLoad()
         
         pitcherHistoryTableView.dataSource = self
-        viewModel.handler = { game in
-            DispatchQueue.main.async { [weak self] in
+
+        viewModel.$game
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] response in
+                guard let game = response?.data else { return }
                 self?.scoreHeaderView.configureAway(score: game.awayTeam.score)
                 self?.scoreHeaderView.configureHome(score: game.homeTeam.score)
                 self?.currentPlayerView.configure(batter: game.batter, status: game.batterStatus)
@@ -43,19 +47,10 @@ class PlayViewController: UIViewController {
                 self?.currentPlayerView.configure(playerRole: game.myRole)
                 self?.pitcherHistoryTableView.reloadData()
             }
-        }
+            .store(in: &cancelBag)
         
         configureUI()
-        viewModel.load { game in
-            DispatchQueue.main.async { [weak self] in
-                self?.scoreHeaderView.configureAway(score: game.awayTeam.score)
-                self?.scoreHeaderView.configureHome(score: game.homeTeam.score)
-                self?.currentPlayerView.configure(batter: game.batter, status: game.batterStatus)
-                self?.currentPlayerView.configure(pitcher: game.pitcher, status: game.pitcherStatus)
-                self?.currentPlayerView.configure(playerRole: game.myRole)
-                self?.pitcherHistoryTableView.reloadData()
-            }
-        }
+        viewModel.load()
     }
     
     private func configureUI() {
