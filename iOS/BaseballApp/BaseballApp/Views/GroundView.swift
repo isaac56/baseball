@@ -136,6 +136,31 @@ class GroundView: UIView {
     }
     
     @IBAction func pitchButtonPressed(_ sender: UIButton) {
+        let homePlatePosition = CGPoint(x: bounds.midX, y: bounds.maxY - Constants.InfieldSquare.padding)
+        let firstBasePosition = CGPoint(x: bounds.maxX - Constants.InfieldSquare.padding, y: bounds.midY)
+        let secondBasePosition = CGPoint(x: bounds.midX, y: bounds.minY + Constants.InfieldSquare.padding)
+        let thirdBasePosition = CGPoint(x: bounds.minX + Constants.InfieldSquare.padding, y: bounds.midY)
         
+        let initialPosition: CGPoint = runnerLayer.position
+        var finalPosition: CGPoint = CGPoint(x: 0.0, y: 0.0)
+        
+        switch runnerLayer.position {
+        case homePlatePosition:
+            finalPosition = firstBasePosition
+        case firstBasePosition:
+            finalPosition = secondBasePosition
+        case secondBasePosition:
+            finalPosition = thirdBasePosition
+        case thirdBasePosition:
+            finalPosition = homePlatePosition
+        default:
+            break
+        }
+        
+        runnerLayer.position = finalPosition
+        let animation = CABasicAnimation(keyPath: #keyPath(CALayer.position))
+        animation.fromValue = initialPosition
+        animation.toValue = finalPosition
+        runnerLayer.animation(forKey: "move")
     }
 }
