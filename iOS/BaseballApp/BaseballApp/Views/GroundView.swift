@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol GroundViewDelegate: class {
+    func pitch()
+}
+
 class GroundView: UIView {
     enum Constant {
         static let infieldSquareLineWidth: CGFloat = 5.0
@@ -15,6 +19,7 @@ class GroundView: UIView {
         static let baseDiagonalLength: CGFloat = 30.0
     }
     
+    weak var delegate: GroundViewDelegate?
     private let infieldSquareLayer = CAShapeLayer()
     private let homePlateLayer = CAShapeLayer()
     private var firstBaseLayer = CAShapeLayer()
@@ -101,6 +106,6 @@ class GroundView: UIView {
     }
     
     @IBAction func pitchButtonPressed(_ sender: UIButton) {
-            
+        delegate?.pitch()
     }
 }

@@ -23,9 +23,9 @@ struct Game: Decodable {
     let pitcherStatus: String
     let batter: Player
     let batterStatus: String
-    let base1: String?
-    let base2: String?
-    let base3: String?
+    let base1: Player?
+    let base2: Player?
+    let base3: Player?
     let pitchHistories: [Record]
     let myRole: String
     
