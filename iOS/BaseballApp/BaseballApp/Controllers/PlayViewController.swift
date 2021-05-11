@@ -40,12 +40,19 @@ class PlayViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] response in
                 guard let game = response?.data else { return }
-                self?.scoreHeaderView.configureAway(score: game.awayTeam.score)
-                self?.scoreHeaderView.configureHome(score: game.homeTeam.score)
-                self?.currentPlayerView.configure(batter: game.batter, status: game.batterStatus)
-                self?.currentPlayerView.configure(pitcher: game.pitcher, status: game.pitcherStatus)
-                self?.currentPlayerView.configure(playerRole: game.myRole)
-                self?.pitcherHistoryTableView.reloadData()
+                guard let strongSelf = self else { return }
+                strongSelf.scoreHeaderView.configureAway(score: game.awayTeam.score)
+                strongSelf.scoreHeaderView.configureHome(score: game.homeTeam.score)
+                strongSelf.currentPlayerView.configure(batter: game.batter, status: game.batterStatus)
+                strongSelf.currentPlayerView.configure(pitcher: game.pitcher, status: game.pitcherStatus)
+                strongSelf.currentPlayerView.configure(playerRole: game.myRole)
+                strongSelf.groundView.configure(inningInfo: strongSelf.viewModel.convert(inning: game.inning, halves: game.halves))
+                strongSelf.groundView.configure(myRole: strongSelf.viewModel.convert(myRole: game.myRole))
+                strongSelf.groundView.configure(strikeCount: game.strike)
+                NSLayoutConstraint.deactivate(strongSelf.pitcherHistoryTableView.constraints)
+                let heightConstraint = NSLayoutConstraint(item: strongSelf.pitcherHistoryTableView as Any, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1.0, constant: Constant.tableRowHeight * CGFloat(game.pitchHistories.count))
+                strongSelf.pitcherHistoryTableView.addConstraint(heightConstraint)
+                strongSelf.pitcherHistoryTableView.reloadData()
             }
             .store(in: &cancelBag)
         
