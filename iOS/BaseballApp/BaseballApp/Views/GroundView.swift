@@ -21,6 +21,9 @@ class GroundView: UIView {
             static let lineWidth: CGFloat = 1.0
             static let diagonalLength: CGFloat = 30.0
         }
+        enum Runner {
+            static let diameter: CGFloat = 25.0
+        }
     }
     
     private let infieldSquareLayer = CAShapeLayer()
@@ -28,6 +31,7 @@ class GroundView: UIView {
     private var firstBaseLayer = CAShapeLayer()
     private var secondBaseLayer = CAShapeLayer()
     private var thirdBaseLayer = CAShapeLayer()
+    private let runnerLayer = CAShapeLayer()
     
     override func awakeFromNib() {
         self.backgroundColor = .systemGray3
@@ -39,6 +43,7 @@ class GroundView: UIView {
         configureInfieldSquareLayer()
         configureHomePlateLayer()
         configureLayerForBases()
+        configureRunnerLayer()
     }
     
     private func configureInfieldSquareLayer() {
@@ -76,6 +81,20 @@ class GroundView: UIView {
         firstBaseLayer.path = createRhombusPath(for: firstBaseLayer)
         secondBaseLayer.path = createRhombusPath(for: secondBaseLayer)
         thirdBaseLayer.path = createRhombusPath(for: thirdBaseLayer)
+    }
+    
+    private func configureRunnerLayer() {
+        runnerLayer.frame = CGRect(x: bounds.midX - Constants.Runner.diameter / 2,
+                                   y: bounds.maxY - Constants.InfieldSquare.padding - (Constants.Runner.diameter / 2),
+                                   width: Constants.Runner.diameter,
+                                   height: Constants.Runner.diameter)
+        layer.addSublayer(runnerLayer)
+        runnerLayer.fillColor = UIColor.systemOrange.cgColor
+        let circlePath = UIBezierPath(ovalIn: CGRect(x: runnerLayer.bounds.minX,
+                                                     y: runnerLayer.bounds.minY,
+                                                     width: runnerLayer.bounds.width,
+                                                     height: runnerLayer.bounds.height))
+        runnerLayer.path = circlePath.cgPath
     }
     
     private func createRhombusPath(for layer: CAShapeLayer) -> CGPath {
