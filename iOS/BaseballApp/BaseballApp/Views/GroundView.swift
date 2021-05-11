@@ -9,6 +9,11 @@ import UIKit
 
 class GroundView: UIView {
     enum Constants {
+        enum SBOCount {
+            static let lineWidth: CGFloat = 1.0
+            static let padding: CGFloat = 5.0
+            static let diameter: CGFloat = 20.0
+        }
         enum InfieldSquare {
             static let lineWidth: CGFloat = 5.0
             static let padding: CGFloat = 50.0
@@ -27,6 +32,16 @@ class GroundView: UIView {
         }
     }
     
+    @IBOutlet weak var strikeCount: UILabel!
+    @IBOutlet weak var ballCount: UILabel!
+    @IBOutlet weak var outCount: UILabel!
+    private var strikeCount1Layer = CAShapeLayer()
+    private var strikeCount2Layer = CAShapeLayer()
+    private var ballCount1Layer = CAShapeLayer()
+    private var ballCount2Layer = CAShapeLayer()
+    private var ballCount3Layer = CAShapeLayer()
+    private var outCount1Layer = CAShapeLayer()
+    private var outCount2Layer = CAShapeLayer()
     private let infieldSquareLayer = CAShapeLayer()
     private let homePlateLayer = CAShapeLayer()
     private var firstBaseLayer = CAShapeLayer()
@@ -41,10 +56,21 @@ class GroundView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        configureLayerForSBOCount()
         configureInfieldSquareLayer()
         configureHomePlateLayer()
         configureLayerForBases()
         configureRunnerLayer()
+    }
+    
+    private func configureLayerForSBOCount() {
+        strikeCount1Layer = addCountLayer(nextTo: strikeCount.layer)
+        strikeCount2Layer = addCountLayer(nextTo: strikeCount1Layer)
+        ballCount1Layer = addCountLayer(nextTo: ballCount.layer)
+        ballCount2Layer = addCountLayer(nextTo: ballCount1Layer)
+        ballCount3Layer = addCountLayer(nextTo: ballCount2Layer)
+        outCount1Layer = addCountLayer(nextTo: outCount.layer)
+        outCount2Layer = addCountLayer(nextTo: outCount1Layer)
     }
     
     private func configureInfieldSquareLayer() {
@@ -100,7 +126,29 @@ class GroundView: UIView {
         runnerLayer.path = circlePath.cgPath
     }
     
-    private func createRhombusPath(for layer: CAShapeLayer) -> CGPath {
+    private func addCountLayer(nextTo baseLayer: CALayer) -> CAShapeLayer {
+        let newLayer = CAShapeLayer()
+        newLayer.frame = CGRect(x: baseLayer.frame.maxX + Constants.SBOCount.padding,
+                                y: baseLayer.frame.minY + (baseLayer.frame.height - Constants.SBOCount.diameter) / 2,
+                                width: Constants.SBOCount.diameter,
+                                    height: Constants.SBOCount.diameter)
+        layer.addSublayer(newLayer)
+        newLayer.strokeColor = UIColor.systemGray.cgColor
+        newLayer.fillColor = UIColor.clear.cgColor
+        newLayer.lineWidth = Constants.SBOCount.lineWidth
+        newLayer.path = createCirclePath(for: newLayer)
+        return newLayer
+    }
+    
+    private func createCirclePath(for baseLayer: CAShapeLayer) -> CGPath {
+        let circlePath = UIBezierPath(ovalIn: CGRect(x: baseLayer.bounds.minX,
+                                                     y: baseLayer.bounds.minY,
+                                                     width: baseLayer.bounds.width,
+                                                     height: baseLayer.bounds.height))
+        return circlePath.cgPath
+    }
+    
+    private func createRhombusPath(for baseLayer: CAShapeLayer) -> CGPath {
         let rhombusPath = UIBezierPath()
         rhombusPath.move(to: CGPoint(x: baseLayer.bounds.midX, y: baseLayer.bounds.maxY))
         rhombusPath.addLine(to: CGPoint(x: baseLayer.bounds.minX, y: baseLayer.bounds.midY))
