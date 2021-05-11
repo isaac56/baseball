@@ -22,6 +22,7 @@ class GroundView: UIView {
             static let diagonalLength: CGFloat = 30.0
         }
         enum Runner {
+            static let lineWidth: CGFloat = 1.0
             static let diameter: CGFloat = 25.0
         }
     }
@@ -89,7 +90,9 @@ class GroundView: UIView {
                                    width: Constants.Runner.diameter,
                                    height: Constants.Runner.diameter)
         layer.addSublayer(runnerLayer)
+        runnerLayer.strokeColor = UIColor.systemGray.cgColor
         runnerLayer.fillColor = UIColor.systemOrange.cgColor
+        runnerLayer.lineWidth = Constants.Runner.lineWidth
         let circlePath = UIBezierPath(ovalIn: CGRect(x: runnerLayer.bounds.minX,
                                                      y: runnerLayer.bounds.minY,
                                                      width: runnerLayer.bounds.width,
@@ -99,26 +102,26 @@ class GroundView: UIView {
     
     private func createRhombusPath(for layer: CAShapeLayer) -> CGPath {
         let rhombusPath = UIBezierPath()
-        rhombusPath.move(to: CGPoint(x: layer.bounds.midX, y: layer.bounds.maxY))
-        rhombusPath.addLine(to: CGPoint(x: layer.bounds.minX, y: layer.bounds.midY))
-        rhombusPath.addLine(to: CGPoint(x: layer.bounds.midX, y: layer.bounds.minY))
-        rhombusPath.addLine(to: CGPoint(x: layer.bounds.maxX, y: layer.bounds.midY))
+        rhombusPath.move(to: CGPoint(x: baseLayer.bounds.midX, y: baseLayer.bounds.maxY))
+        rhombusPath.addLine(to: CGPoint(x: baseLayer.bounds.minX, y: baseLayer.bounds.midY))
+        rhombusPath.addLine(to: CGPoint(x: baseLayer.bounds.midX, y: baseLayer.bounds.minY))
+        rhombusPath.addLine(to: CGPoint(x: baseLayer.bounds.maxX, y: baseLayer.bounds.midY))
         rhombusPath.close()
         return rhombusPath.cgPath
     }
     
-    private func createPlatePath(for layer: CAShapeLayer) -> CGPath {
+    private func createPlatePath(for baseLayer: CAShapeLayer) -> CGPath {
         let platePath = UIBezierPath()
-        platePath.move(to: CGPoint(x: layer.bounds.midX,
-                                   y: layer.bounds.minY))
-        platePath.addLine(to: CGPoint(x: layer.bounds.minX,
-                                      y: layer.bounds.minY + Constants.HomePlate.topTriangleHeight))
-        platePath.addLine(to: CGPoint(x: layer.bounds.minX,
-                                      y: layer.bounds.minY + Constants.HomePlate.topTriangleHeight + Constants.HomePlate.bottomSquareLength))
-        platePath.addLine(to: CGPoint(x: layer.bounds.midX + Constants.HomePlate.bottomSquareLength / 2,
-                                      y: layer.bounds.minY + Constants.HomePlate.topTriangleHeight + Constants.HomePlate.bottomSquareLength))
-        platePath.addLine(to: CGPoint(x: layer.bounds.midX + Constants.HomePlate.bottomSquareLength / 2,
-                                      y: layer.bounds.minY + Constants.HomePlate.topTriangleHeight))
+        platePath.move(to: CGPoint(x: baseLayer.bounds.midX,
+                                   y: baseLayer.bounds.minY))
+        platePath.addLine(to: CGPoint(x: baseLayer.bounds.minX,
+                                      y: baseLayer.bounds.minY + Constants.HomePlate.topTriangleHeight))
+        platePath.addLine(to: CGPoint(x: baseLayer.bounds.minX,
+                                      y: baseLayer.bounds.minY + Constants.HomePlate.topTriangleHeight + Constants.HomePlate.bottomSquareLength))
+        platePath.addLine(to: CGPoint(x: baseLayer.bounds.midX + Constants.HomePlate.bottomSquareLength / 2,
+                                      y: baseLayer.bounds.minY + Constants.HomePlate.topTriangleHeight + Constants.HomePlate.bottomSquareLength))
+        platePath.addLine(to: CGPoint(x: baseLayer.bounds.midX + Constants.HomePlate.bottomSquareLength / 2,
+                                      y: baseLayer.bounds.minY + Constants.HomePlate.topTriangleHeight))
         platePath.close()
         return platePath.cgPath
     }
