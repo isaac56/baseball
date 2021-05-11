@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol GroundViewDelegate: class {
+    func pitch()
+}
+
 class GroundView: UIView {
     enum Constants {
         enum SBOCount {
@@ -31,10 +35,12 @@ class GroundView: UIView {
             static let diameter: CGFloat = 25.0
         }
     }
-    
+
     @IBOutlet weak var strikeCount: UILabel!
     @IBOutlet weak var ballCount: UILabel!
     @IBOutlet weak var outCount: UILabel!
+    weak var delegate: GroundViewDelegate?
+    
     private var strikeCount1Layer = CAShapeLayer()
     private var strikeCount2Layer = CAShapeLayer()
     private var ballCount1Layer = CAShapeLayer()
@@ -213,5 +219,6 @@ class GroundView: UIView {
         animation.fromValue = initialPosition
         animation.toValue = finalPosition
         runnerLayer.animation(forKey: "move")
+        delegate?.pitch()
     }
 }

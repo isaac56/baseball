@@ -12,6 +12,7 @@ class GameViewModel {
     @Published var game: GameResponse?
     let gameUseCase = GameUseCase()
     var cancelBag = Set<AnyCancellable>()
+    var handler: ((Game) -> Void)?
     
     func load(completionHandler: @escaping (Game) -> Void) {
         guard let url = Endpoint.url(path: Endpoint.Path.gameStatus) else { return }
@@ -28,5 +29,13 @@ class GameViewModel {
             completionHandler(response.data)
         }
         .store(in: &cancelBag)
+    }
+    
+    func request() {
+        guard let url = Endpoint.url(path: Endpoint.Path.pitchResult) else { return }
+        gameUseCase.pitch(url: url)
+        
+        guard let handler = handler else { return }
+        load(completionHandler: handler)
     }
 }

@@ -19,16 +19,14 @@ class PlayViewController: UIViewController {
     @IBOutlet weak var scoreHeaderView: ScoreHeaderView!
     
     var currentPlayerView: CurrentPlayerView!
+    var groundView: GroundView!
     var count: Int = 0
-    var viewModel: GameViewModel! {
-        didSet {
-            count = viewModel?.game?.data.pitchHistories.count ?? 0
-        }
-    }
+    var viewModel: GameViewModel = GameViewModel()
     
     private let pitcherHistoryTableView: UITableView = {
         let tableView = UITableView()
         tableView.rowHeight = Constant.tableRowHeight
+        tableView.register(PitcherRecordTableViewCell.nib(), forCellReuseIdentifier: PitcherRecordTableViewCell.identifier)
         return tableView
     }()
     
@@ -36,9 +34,17 @@ class PlayViewController: UIViewController {
         super.viewDidLoad()
         
         pitcherHistoryTableView.dataSource = self
-        pitcherHistoryTableView.register(PitcherRecordTableViewCell.nib(), forCellReuseIdentifier: PitcherRecordTableViewCell.identifier)
+        viewModel.handler = { game in
+            DispatchQueue.main.async { [weak self] in
+                self?.scoreHeaderView.configureAway(score: game.awayTeam.score)
+                self?.scoreHeaderView.configureHome(score: game.homeTeam.score)
+                self?.currentPlayerView.configure(batter: game.batter, status: game.batterStatus)
+                self?.currentPlayerView.configure(pitcher: game.pitcher, status: game.pitcherStatus)
+                self?.currentPlayerView.configure(playerRole: game.myRole)
+                self?.pitcherHistoryTableView.reloadData()
+            }
+        }
         
-        viewModel = GameViewModel()
         configureUI()
         viewModel.load { game in
             DispatchQueue.main.async { [weak self] in
@@ -62,6 +68,9 @@ class PlayViewController: UIViewController {
             return
         }
         self.currentPlayerView = currentPlayerView
+        self.groundView = groundView
+        groundView.delegate = self
+        
         playInformationStackView.addArrangedSubview(groundView)
         playInformationStackView.addArrangedSubview(currentPlayerView)
         playInformationStackView.addArrangedSubview(pitcherHistoryTableView)
@@ -69,7 +78,7 @@ class PlayViewController: UIViewController {
         NSLayoutConstraint.activate([
             groundView.heightAnchor.constraint(equalToConstant: view.frame.width),
             currentPlayerView.heightAnchor.constraint(equalToConstant: Constant.currentPlayerViewHeight),
-            pitcherHistoryTableView.heightAnchor.constraint(equalToConstant: Constant.tableRowHeight * CGFloat(count)),
+            pitcherHistoryTableView.heightAnchor.constraint(equalToConstant: Constant.tableRowHeight * CGFloat(500)),
             pitcherHistoryTableView.leadingAnchor.constraint(equalTo: playInformationStackView.leadingAnchor),
             pitcherHistoryTableView.trailingAnchor.constraint(equalTo: playInformationStackView.trailingAnchor),
         ])
@@ -78,7 +87,7 @@ class PlayViewController: UIViewController {
 
 extension PlayViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel?.game?.data.pitchHistories.count ?? 0
+        return viewModel.game?.data.pitchHistories.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -86,7 +95,13 @@ extension PlayViewController: UITableViewDataSource {
               let record = viewModel.game?.data.pitchHistories[indexPath.row] else {
             return UITableViewCell()
         }
-        cell.configure(record: record)
+        cell.configure(number: indexPath.row + 1, record: record)
         return cell
+    }
+}
+
+extension PlayViewController: GroundViewDelegate {
+    func pitch() {
+        viewModel.request()
     }
 }
