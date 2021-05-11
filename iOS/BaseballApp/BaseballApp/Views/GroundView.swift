@@ -39,6 +39,8 @@ class GroundView: UIView {
     @IBOutlet weak var strikeCount: UILabel!
     @IBOutlet weak var ballCount: UILabel!
     @IBOutlet weak var outCount: UILabel!
+    @IBOutlet weak var inning: UILabel!
+    @IBOutlet weak var myRole: UILabel!
     weak var delegate: GroundViewDelegate?
     
     private var strikeCount1Layer = CAShapeLayer()
@@ -67,6 +69,18 @@ class GroundView: UIView {
         configureHomePlateLayer()
         configureLayerForBases()
         configureRunnerLayer()
+    }
+    
+    func configure(inningInfo: String) {
+        self.inning.text = inningInfo
+    }
+    
+    func configure(myRole: String) {
+        self.myRole.text = myRole
+    }
+    
+    func configure(strikeCount: Int) {
+        
     }
     
     private func configureLayerForSBOCount() {
@@ -137,7 +151,7 @@ class GroundView: UIView {
         newLayer.frame = CGRect(x: baseLayer.frame.maxX + Constants.SBOCount.padding,
                                 y: baseLayer.frame.minY + (baseLayer.frame.height - Constants.SBOCount.diameter) / 2,
                                 width: Constants.SBOCount.diameter,
-                                    height: Constants.SBOCount.diameter)
+                                height: Constants.SBOCount.diameter)
         layer.addSublayer(newLayer)
         newLayer.strokeColor = UIColor.systemGray.cgColor
         newLayer.fillColor = UIColor.clear.cgColor

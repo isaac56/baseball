@@ -94,6 +94,8 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="ballCount" destination="8og-sY-hUf" id="TYv-WH-IIb"/>
+                <outlet property="inning" destination="gNx-MW-ziO" id="Vab-c6-wgT"/>
+                <outlet property="myRole" destination="9mI-HW-KUF" id="bRX-Cz-xtw"/>
                 <outlet property="outCount" destination="kK9-9Z-SZM" id="CUy-tA-EOF"/>
                 <outlet property="strikeCount" destination="SAk-mH-yQC" id="Y5t-Od-tMj"/>
             </connections>
