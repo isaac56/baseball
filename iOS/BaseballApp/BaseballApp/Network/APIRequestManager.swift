@@ -30,10 +30,13 @@ class APIRequestManager {
 }
 
 struct Endpoint {
+    static let basePath = "/game"
+    
     enum Path {
-        static let gameList = "/game/list"
-        static let gameStatus = "/game/status"
-        static let pitchResult = "/game/status/pitch-result"
+        static let gameList = basePath + "/list"
+        static let gameStatus = basePath + "/status"
+        static let pitchResult = basePath + "/status/pitch-result"
+        static let gameHistory = basePath + "/history"
     }
     
     static func url(path: String) -> URL? {

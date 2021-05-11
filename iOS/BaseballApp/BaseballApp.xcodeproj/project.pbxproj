@@ -22,6 +22,12 @@
 		D03CF0842642781400C00729 /* ScoreHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D03CF0832642781400C00729 /* ScoreHeaderView.xib */; };
 		D03CF0892642782500C00729 /* ScoreHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03CF0882642782500C00729 /* ScoreHeaderView.swift */; };
 		D03CF0A02642890000C00729 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03CF09F2642890000C00729 /* GameViewModel.swift */; };
+		D05895B0264A9AD9002D5BC0 /* BattingHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05895AE264A9AD9002D5BC0 /* BattingHistoryTableViewCell.swift */; };
+		D05895B1264A9AD9002D5BC0 /* BattingHistoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D05895AF264A9AD9002D5BC0 /* BattingHistoryTableViewCell.xib */; };
+		D05895B9264A9C8F002D5BC0 /* ScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05895B8264A9C8F002D5BC0 /* ScoreViewController.swift */; };
+		D05895BE264A9EBC002D5BC0 /* BattingHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05895BD264A9EBC002D5BC0 /* BattingHistory.swift */; };
+		D05895C3264AA1B2002D5BC0 /* GameHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05895C2264AA1B2002D5BC0 /* GameHistoryViewModel.swift */; };
+		D05895C8264AA1F3002D5BC0 /* GameHistoryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05895C7264AA1F3002D5BC0 /* GameHistoryUseCase.swift */; };
 		E4329A23264530BF00C16DDD /* CountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4329A22264530BF00C16DDD /* CountView.swift */; };
 		E4329A2526479FFA00C16DDD /* UIView+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4329A2426479FFA00C16DDD /* UIView+Identifier.swift */; };
 		E4BE320026412390006E294A /* GroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BE31FF26412390006E294A /* GroundView.swift */; };
@@ -75,6 +81,12 @@
 		D03CF0832642781400C00729 /* ScoreHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ScoreHeaderView.xib; path = BaseballApp/Views/ScoreHeaderView.xib; sourceTree = SOURCE_ROOT; };
 		D03CF0882642782500C00729 /* ScoreHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreHeaderView.swift; sourceTree = "<group>"; };
 		D03CF09F2642890000C00729 /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
+		D05895AE264A9AD9002D5BC0 /* BattingHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattingHistoryTableViewCell.swift; sourceTree = "<group>"; };
+		D05895AF264A9AD9002D5BC0 /* BattingHistoryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BattingHistoryTableViewCell.xib; sourceTree = "<group>"; };
+		D05895B8264A9C8F002D5BC0 /* ScoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreViewController.swift; sourceTree = "<group>"; };
+		D05895BD264A9EBC002D5BC0 /* BattingHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattingHistory.swift; sourceTree = "<group>"; };
+		D05895C2264AA1B2002D5BC0 /* GameHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHistoryViewModel.swift; sourceTree = "<group>"; };
+		D05895C7264AA1F3002D5BC0 /* GameHistoryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHistoryUseCase.swift; sourceTree = "<group>"; };
 		E4329A22264530BF00C16DDD /* CountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountView.swift; sourceTree = "<group>"; };
 		E4329A2426479FFA00C16DDD /* UIView+Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Identifier.swift"; sourceTree = "<group>"; };
 		E4BE31FF26412390006E294A /* GroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroundView.swift; sourceTree = "<group>"; };
@@ -185,6 +197,8 @@
 				D03CF0832642781400C00729 /* ScoreHeaderView.xib */,
 				D03CF0882642782500C00729 /* ScoreHeaderView.swift */,
 				D03CF0172640E61900C00729 /* Main.storyboard */,
+				D05895AE264A9AD9002D5BC0 /* BattingHistoryTableViewCell.swift */,
+				D05895AF264A9AD9002D5BC0 /* BattingHistoryTableViewCell.xib */,
 				E4BE320726412F53006E294A /* PitcherRecordTableViewCell.swift */,
 				E4BE320826412F53006E294A /* PitcherRecordTableViewCell.xib */,
 				E4BE31FF26412390006E294A /* GroundView.swift */,
@@ -202,6 +216,7 @@
 			children = (
 				D03CF0152640E61900C00729 /* LobbyViewController.swift */,
 				E4BE320F2641356C006E294A /* PlayViewController.swift */,
+				D05895B8264A9C8F002D5BC0 /* ScoreViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -211,6 +226,7 @@
 			children = (
 				D03CF0612641493C00C00729 /* Room.swift */,
 				D03CF06A264149F000C00729 /* Game.swift */,
+				D05895BD264A9EBC002D5BC0 /* BattingHistory.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -220,6 +236,7 @@
 			children = (
 				E4BE321326425D41006E294A /* RoomsViewModel.swift */,
 				D03CF09F2642890000C00729 /* GameViewModel.swift */,
+				D05895C2264AA1B2002D5BC0 /* GameHistoryViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -229,6 +246,7 @@
 			children = (
 				D03CF07E264273E000C00729 /* GameUseCase.swift */,
 				E4BE321526425E7C006E294A /* RoomsUseCase.swift */,
+				D05895C7264AA1F3002D5BC0 /* GameHistoryUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -349,6 +367,7 @@
 				D03CF01B2640E61A00C00729 /* Assets.xcassets in Resources */,
 				E4BE32022641239A006E294A /* GroundView.xib in Resources */,
 				E4BE320A26412F53006E294A /* PitcherRecordTableViewCell.xib in Resources */,
+				D05895B1264A9AD9002D5BC0 /* BattingHistoryTableViewCell.xib in Resources */,
 				D03CF0192640E61900C00729 /* Main.storyboard in Resources */,
 				D03CF0842642781400C00729 /* ScoreHeaderView.xib in Resources */,
 			);
@@ -379,16 +398,21 @@
 				E4329A23264530BF00C16DDD /* CountView.swift in Sources */,
 				D03CF06B264149F000C00729 /* Game.swift in Sources */,
 				D03CF0162640E61900C00729 /* LobbyViewController.swift in Sources */,
+				D05895C8264AA1F3002D5BC0 /* GameHistoryUseCase.swift in Sources */,
 				E4BE320626412614006E294A /* CurrentPlayerView.swift in Sources */,
+				D05895B0264A9AD9002D5BC0 /* BattingHistoryTableViewCell.swift in Sources */,
 				E4329A2526479FFA00C16DDD /* UIView+Identifier.swift in Sources */,
+				D05895B9264A9C8F002D5BC0 /* ScoreViewController.swift in Sources */,
 				D03CF0A02642890000C00729 /* GameViewModel.swift in Sources */,
 				E4BE320926412F53006E294A /* PitcherRecordTableViewCell.swift in Sources */,
 				E4BE320026412390006E294A /* GroundView.swift in Sources */,
+				D05895BE264A9EBC002D5BC0 /* BattingHistory.swift in Sources */,
 				E4BE321226425878006E294A /* APIRequestManager.swift in Sources */,
 				D03CF0622641493C00C00729 /* Room.swift in Sources */,
 				D03CF0122640E61900C00729 /* AppDelegate.swift in Sources */,
 				D03CF0142640E61900C00729 /* SceneDelegate.swift in Sources */,
 				D03CF0892642782500C00729 /* ScoreHeaderView.swift in Sources */,
+				D05895C3264AA1B2002D5BC0 /* GameHistoryViewModel.swift in Sources */,
 				D03CF04F2640ED7600C00729 /* RoomTableViewCell.swift in Sources */,
 				D03CF07F264273E000C00729 /* GameUseCase.swift in Sources */,
 				E4BE321626425E7C006E294A /* RoomsUseCase.swift in Sources */,

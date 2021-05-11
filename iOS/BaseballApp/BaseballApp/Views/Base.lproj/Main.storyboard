@@ -194,14 +194,67 @@
         <!--Scores-->
         <scene sceneID="Zax-NZ-Vd3">
             <objects>
-                <viewController id="owF-YY-FIO" sceneMemberID="viewController">
+                <viewController id="owF-YY-FIO" customClass="ScoreViewController" customModule="BaseballApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DgE-Pg-hzl">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iHt-hb-OvE" userLabel="Header">
+                                <rect key="frame" x="0.0" y="44" width="414" height="50"/>
+                                <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="XjL-Z0-xqu"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3yM-E6-IYY">
+                                <rect key="frame" x="0.0" y="94" width="414" height="100"/>
+                                <color key="backgroundColor" systemColor="systemGray4Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="F5k-fa-G76"/>
+                                </constraints>
+                            </view>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="uLY-hA-9tb">
+                                <rect key="frame" x="50" y="214" width="314" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="xWC-YP-ady"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Away"/>
+                                    <segment title="Home"/>
+                                </segments>
+                            </segmentedControl>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="LTu-Ew-p9F">
+                                <rect key="frame" x="0.0" y="264" width="414" height="549"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="sgd-Mk-89b">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                </view>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="Hv9-FQ-0Yq"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="iHt-hb-OvE" firstAttribute="top" secondItem="Hv9-FQ-0Yq" secondAttribute="top" id="2na-Xl-tm6"/>
+                            <constraint firstItem="Hv9-FQ-0Yq" firstAttribute="bottom" secondItem="LTu-Ew-p9F" secondAttribute="bottom" id="3k2-Cu-1kZ"/>
+                            <constraint firstItem="3yM-E6-IYY" firstAttribute="top" secondItem="iHt-hb-OvE" secondAttribute="bottom" id="K1B-Nn-GI9"/>
+                            <constraint firstItem="LTu-Ew-p9F" firstAttribute="leading" secondItem="Hv9-FQ-0Yq" secondAttribute="leading" id="RV1-h8-Fin"/>
+                            <constraint firstItem="Hv9-FQ-0Yq" firstAttribute="trailing" secondItem="uLY-hA-9tb" secondAttribute="trailing" constant="50" id="Rnr-Cd-QeB"/>
+                            <constraint firstItem="Hv9-FQ-0Yq" firstAttribute="trailing" secondItem="iHt-hb-OvE" secondAttribute="trailing" id="XGZ-io-B8a"/>
+                            <constraint firstItem="Hv9-FQ-0Yq" firstAttribute="trailing" secondItem="3yM-E6-IYY" secondAttribute="trailing" id="chb-xr-auu"/>
+                            <constraint firstItem="Hv9-FQ-0Yq" firstAttribute="trailing" secondItem="LTu-Ew-p9F" secondAttribute="trailing" id="fKk-qy-kvT"/>
+                            <constraint firstItem="iHt-hb-OvE" firstAttribute="leading" secondItem="Hv9-FQ-0Yq" secondAttribute="leading" id="jGD-hC-kTH"/>
+                            <constraint firstItem="LTu-Ew-p9F" firstAttribute="top" secondItem="uLY-hA-9tb" secondAttribute="bottom" constant="20" id="nJ1-6H-XGb"/>
+                            <constraint firstItem="3yM-E6-IYY" firstAttribute="leading" secondItem="Hv9-FQ-0Yq" secondAttribute="leading" id="o06-kj-0IM"/>
+                            <constraint firstItem="uLY-hA-9tb" firstAttribute="leading" secondItem="Hv9-FQ-0Yq" secondAttribute="leading" constant="50" id="qKH-MG-GzM"/>
+                            <constraint firstItem="uLY-hA-9tb" firstAttribute="top" secondItem="3yM-E6-IYY" secondAttribute="bottom" constant="20" id="yEu-Np-uBE"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Scores" image="chart.bar.xaxis" catalog="system" id="Wz8-Kk-c4G"/>
+                    <connections>
+                        <outlet property="battingHistory" destination="LTu-Ew-p9F" id="qQz-bY-5Ph"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eeF-n3-4he" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -235,6 +288,12 @@
         </systemColor>
         <systemColor name="systemGray2Color">
             <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray4Color">
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
