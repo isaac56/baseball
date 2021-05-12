@@ -345,11 +345,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="LTu-Ew-p9F">
                                 <rect key="frame" x="0.0" y="264" width="414" height="549"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <view key="tableFooterView" contentMode="scaleToFill" id="7vw-6B-EvI">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                </view>
+                                <sections/>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Hv9-FQ-0Yq"/>
@@ -375,7 +371,6 @@
                         <outlet property="awayScoreStackView" destination="For-mS-idW" id="ugz-Z1-ZMY"/>
                         <outlet property="awayTeamName" destination="fyr-Rr-fxz" id="iua-nO-nge"/>
                         <outlet property="battingHistory" destination="LTu-Ew-p9F" id="qQz-bY-5Ph"/>
-                        <outlet property="battingHistoryHeader" destination="7vw-6B-EvI" id="R2O-VV-23P"/>
                         <outlet property="homeScoreStackView" destination="k8c-RA-wvo" id="5Iy-68-b1p"/>
                         <outlet property="homeTeamName" destination="OEE-Vk-qlj" id="xUc-Ad-zYg"/>
                         <outlet property="segmentedTeam" destination="uLY-hA-9tb" id="NNl-wJ-Q2E"/>

@@ -16,15 +16,6 @@ class ScoreViewController: UIViewController {
     @IBOutlet weak var segmentedTeam: UISegmentedControl!
     @IBOutlet weak var battingHistory: UITableView!
     
-    @IBAction func selectTeam(_ sender: Any) {
-        if segmentedTeam.selectedSegmentIndex == 0 {
-            items = gameHistoryViewModel.awayBbattingHistory
-        } else {
-            items = gameHistoryViewModel.homeBbattingHistory
-        }
-        updateSnapshot()
-    }
-    
     private var gameHistoryViewModel = GameHistoryViewModel()
     private var cancelBag = Set<AnyCancellable>()
     private lazy var dataSource = makeDataSource()
@@ -32,10 +23,14 @@ class ScoreViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        battingHistory.dataSource = dataSource
-        battingHistory.register(BattingHistoryTableViewCell.nib(),
-                                forCellReuseIdentifier: BattingHistoryTableViewCell.identifier)
-        
+        setupTableView()
+        bind()
+        gameHistoryViewModel.load()
+    }
+
+    // MARK: Private Functions
+    
+    private func bind() {
         gameHistoryViewModel.$battingHistory
             .receive(on: DispatchQueue.main)
             .sink { [weak self] data in
@@ -44,13 +39,18 @@ class ScoreViewController: UIViewController {
                 strongSelf.homeTeamName.text = data?.homeTeam.teamName
                 strongSelf.setScore(for: strongSelf.homeScoreStackView, of: data?.awayTeam.scores)
                 strongSelf.setScore(for: strongSelf.awayScoreStackView, of: data?.homeTeam.scores)
-                strongSelf.battingHistory.reloadData()
+                strongSelf.items = data?.awayTeam.battingHistory ?? []
+                strongSelf.updateSnapshot()
             }
             .store(in: &cancelBag)
-        gameHistoryViewModel.load()
     }
-
-    // MARK: Private Functions
+    
+    private func setupTableView() {
+        battingHistory.dataSource = dataSource
+        battingHistory.register(BattingHistoryTableViewCell.nib(),
+                                forCellReuseIdentifier: BattingHistoryTableViewCell.identifier)
+        battingHistory.rowHeight = 30
+    }
     
     private func setScore(for team: UIStackView, of numbers: [Int]?) {
         guard let numbers = numbers else {
@@ -87,6 +87,17 @@ class ScoreViewController: UIViewController {
     
     private func formatting(target: Double) -> String {
         return String(format: "%.1f",  target)
+    }
+    
+    // MARK: IBAction
+    
+    @IBAction func selectTeam(_ sender: Any) {
+        if segmentedTeam.selectedSegmentIndex == 0 {
+            items = gameHistoryViewModel.awayBbattingHistory
+        } else {
+            items = gameHistoryViewModel.homeBbattingHistory
+        }
+        updateSnapshot()
     }
 }
 
