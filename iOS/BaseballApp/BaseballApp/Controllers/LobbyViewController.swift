@@ -24,7 +24,6 @@ class LobbyViewController: UIViewController {
             }
         }
     }
-   
 }
 
 extension LobbyViewController: UITableViewDataSource {
