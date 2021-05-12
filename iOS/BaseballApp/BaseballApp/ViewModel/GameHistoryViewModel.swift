@@ -10,8 +10,14 @@ import Combine
 
 class GameHistoryViewModel {
     @Published var battingHistory: BattingHistoryData?
-    let gameHistoryUseCase = GameHistoryUseCase()
-    var cancelBag = Set<AnyCancellable>()
+    var awayBbattingHistory: [BattingHistory] {
+        return battingHistory?.awayTeam.battingHistory ?? []
+    }
+    var homeBbattingHistory: [BattingHistory] {
+        return battingHistory?.homeTeam.battingHistory ?? []
+    }
+    private let gameHistoryUseCase = GameHistoryUseCase()
+    private var cancelBag = Set<AnyCancellable>()
     
     func load() {
         guard let url = Endpoint.url(path: Endpoint.Path.gameHistory) else { return }

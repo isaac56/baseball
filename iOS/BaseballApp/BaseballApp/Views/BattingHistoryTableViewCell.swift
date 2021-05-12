@@ -19,11 +19,12 @@ class BattingHistoryTableViewCell: UITableViewCell {
         return UINib(nibName: BattingHistoryTableViewCell.identifier, bundle: nil)
     }
     
-    func configure(name: String, appearCount: Int, hits: Int, out: Int, ratio: String) {
+    func configure(name: String, appearCount: Int, hits: Int, out: Int, ratio: String, isPlaying: Bool) {
         batter.text = name
         self.appearCount.text = "\(appearCount)"
         self.hits.text = "\(hits)"
         self.out.text = "\(out)"
         self.average.text = ratio
+        self.backgroundColor = isPlaying ? .systemBlue : .clear
     }
 }

@@ -17,11 +17,11 @@ class ScoreViewController: UIViewController {
     @IBOutlet weak var battingHistory: UITableView!
     
     @IBAction func selectTeam(_ sender: Any) {
-        let index = segmentedTeam.selectedSegmentIndex
-        guard let history = gameHistoryViewModel.battingHistory else {
-            return
+        if segmentedTeam.selectedSegmentIndex == 0 {
+            items = gameHistoryViewModel.awayBbattingHistory
+        } else {
+            items = gameHistoryViewModel.homeBbattingHistory
         }
-        items = index == 0 ? history.awayTeam.battingHistory : history.homeTeam.battingHistory
         updateSnapshot()
     }
     
@@ -51,6 +51,7 @@ class ScoreViewController: UIViewController {
     }
 
     // MARK: Private Functions
+    
     private func setScore(for team: UIStackView, of numbers: [Int]?) {
         guard let numbers = numbers else {
             return
@@ -63,7 +64,6 @@ class ScoreViewController: UIViewController {
         }
     }
     
-    
     // MARK: UITableViewDiffableDataSource
     
     func makeDataSource() -> UITableViewDiffableDataSource<Section, BattingHistory> {
@@ -73,7 +73,7 @@ class ScoreViewController: UIViewController {
                 return UITableViewCell()
             }
             let ratio = self.formatting(target: model.hitRatio)
-            cell.configure(name: model.name, appearCount: model.appearCount, hits: model.hitCount, out: model.outCount, ratio: ratio)
+            cell.configure(name: model.name, appearCount: model.appearCount, hits: model.hitCount, out: model.outCount, ratio: ratio, isPlaying: model.isPlaying)
             return cell
         }
     }
