@@ -49,6 +49,8 @@ class PlayViewController: UIViewController {
                 strongSelf.groundView.configure(inningInfo: strongSelf.viewModel.convert(inning: game.inning, halves: game.halves))
                 strongSelf.groundView.configure(myRole: strongSelf.viewModel.convert(myRole: game.myRole))
                 strongSelf.groundView.configure(strikeCount: game.strike)
+                strongSelf.groundView.configure(ballCount: game.ball)
+                strongSelf.groundView.configure(outCount: game.out)
                 NSLayoutConstraint.deactivate(strongSelf.pitcherHistoryTableView.constraints)
                 let heightConstraint = NSLayoutConstraint(item: strongSelf.pitcherHistoryTableView as Any, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1.0, constant: Constant.tableRowHeight * CGFloat(game.pitchHistories.count))
                 strongSelf.pitcherHistoryTableView.addConstraint(heightConstraint)

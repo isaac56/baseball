@@ -80,7 +80,37 @@ class GroundView: UIView {
     }
     
     func configure(strikeCount: Int) {
-        
+        let strikeCounts: [CAShapeLayer] = [strikeCount1Layer, strikeCount2Layer]
+        strikeCounts.forEach { selectedLayer in
+            selectedLayer.fillColor = UIColor.clear.cgColor
+        }
+        (0..<strikeCount).forEach { index in
+            if index < strikeCounts.count {
+                strikeCounts[index].fillColor = UIColor.systemYellow.cgColor
+            } else {
+                print("게임이 종료되었습니다.")
+            }
+        }
+    }
+    
+    func configure(ballCount: Int) {
+        let ballCounts: [CAShapeLayer] = [ballCount1Layer, ballCount2Layer, ballCount3Layer]
+        ballCounts.forEach { selectedLayer in
+            selectedLayer.fillColor = UIColor.clear.cgColor
+        }
+        (0..<ballCount).forEach { index in
+            ballCounts[index].fillColor = UIColor.systemGreen.cgColor
+        }
+    }
+    
+    func configure(outCount: Int) {
+        let outCounts: [CAShapeLayer] = [outCount1Layer, outCount2Layer]
+        outCounts.forEach { selectedLayer in
+            selectedLayer.fillColor = UIColor.clear.cgColor
+        }
+        (0..<outCount).forEach { index in
+            outCounts[index].fillColor = UIColor.systemRed.cgColor
+        }
     }
     
     private func configureLayerForSBOCount() {
