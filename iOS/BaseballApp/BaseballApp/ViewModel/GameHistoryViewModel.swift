@@ -88,9 +88,3 @@ extension GameHistoryViewModel {
         return total
     }
 }
-
-struct TotalData {
-    let appearCount: Int
-    let hitCount: Int
-    let outCount: Int
-}

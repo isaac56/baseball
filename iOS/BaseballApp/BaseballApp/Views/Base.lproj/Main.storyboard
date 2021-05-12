@@ -136,7 +136,7 @@
                                     <view contentMode="scaleToFill" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="769" translatesAutoresizingMaskIntoConstraints="NO" id="MAh-l3-Y8B">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="769"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="joP-NT-MNd" customClass="ScoreHeaderView" customModule="BaseballApp" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="joP-NT-MNd">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
@@ -184,7 +184,7 @@
                     <connections>
                         <outlet property="backgroundScrollView" destination="lwW-Zh-prc" id="Qxr-Dl-mY9"/>
                         <outlet property="playInformationStackView" destination="Kju-Os-toV" id="nfE-Bi-PwT"/>
-                        <outlet property="scoreHeaderView" destination="joP-NT-MNd" id="Wah-qD-pBC"/>
+                        <outlet property="scoreHeaderView" destination="joP-NT-MNd" id="4Gr-Ro-6oZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RIy-cE-Mkn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -16,10 +16,11 @@ class PlayViewController: UIViewController {
     
     @IBOutlet weak var backgroundScrollView: UIScrollView!
     @IBOutlet weak var playInformationStackView: UIStackView!
-    @IBOutlet weak var scoreHeaderView: ScoreHeaderView!
+    @IBOutlet weak var scoreHeaderView: UIView!
     
     var currentPlayerView: CurrentPlayerView!
     var groundView: GroundView!
+    var header: ScoreHeaderView? = UIView.loadFromNib()
     var count: Int = 0
     var viewModel: GameViewModel = GameViewModel()
     var cancelBag = Set<AnyCancellable>()
@@ -33,15 +34,17 @@ class PlayViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        header?.frame = scoreHeaderView.bounds
+        scoreHeaderView.addSubview(header!)
         pitcherHistoryTableView.dataSource = self
 
         viewModel.$game
             .receive(on: DispatchQueue.main)
             .sink { [weak self] response in
                 guard let game = response?.data else { return }
-                self?.scoreHeaderView.configureAway(score: game.awayTeam.score)
-                self?.scoreHeaderView.configureHome(score: game.homeTeam.score)
+                self?.header?.configureAway(score: game.awayTeam.score)
+                self?.header?.configureHome(score: game.homeTeam.score)
+                self?.header?.configureTeamNames(away: game.awayTeam.name, home: game.homeTeam.name)
                 self?.currentPlayerView.configure(batter: game.batter, status: game.batterStatus)
                 self?.currentPlayerView.configure(pitcher: game.pitcher, status: game.pitcherStatus)
                 self?.currentPlayerView.configure(playerRole: game.myRole)

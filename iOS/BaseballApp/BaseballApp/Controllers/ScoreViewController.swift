@@ -20,9 +20,12 @@ class ScoreViewController: UIViewController {
     private var cancelBag = Set<AnyCancellable>()
     private lazy var dataSource = makeDataSource()
     private var items: [BattingHistory] = []
+    private var header: ScoreHeaderView? = UIView.loadFromNib()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.titleView = header
         setupTableView()
         bind()
         gameHistoryViewModel.load()
@@ -35,6 +38,12 @@ class ScoreViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] data in
                 guard let strongSelf = self else { return }
+                strongSelf.header?.awayTeamScore.text = strongSelf.reduce(for: data?.awayTeam.scores).toString()
+                strongSelf.header?.homeTeamScore.text = strongSelf.reduce(for: data?.homeTeam.scores).toString()
+                strongSelf.header?.awayTeamName.text = data?.awayTeam.teamName
+                strongSelf.header?.homeTeamName.text = data?.homeTeam.teamName
+                strongSelf.segmentedTeam.setTitle(data?.awayTeam.teamName, forSegmentAt: 0)
+                strongSelf.segmentedTeam.setTitle(data?.homeTeam.teamName, forSegmentAt: 1)
                 strongSelf.awayTeamName.text = data?.awayTeam.teamName
                 strongSelf.homeTeamName.text = data?.homeTeam.teamName
                 strongSelf.setScore(for: strongSelf.homeScoreStackView, of: data?.awayTeam.scores)
@@ -67,6 +76,13 @@ class ScoreViewController: UIViewController {
             label.textAlignment = .center
             team.addArrangedSubview(label)
         }
+    }
+    
+    private func reduce(for data: [Int]?) -> Int {
+        guard let data = data else {
+            return 0
+        }
+        return data.reduce(0) { $0 + $1 }
     }
     
     // MARK: UITableViewDiffableDataSource
@@ -140,4 +156,10 @@ extension ScoreViewController: UITableViewDelegate {
 
 enum Section {
     case one
+}
+
+extension Int {
+    func toString() -> String {
+        return "\(self)"
+    }
 }
