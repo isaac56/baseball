@@ -20,7 +20,6 @@ class PlayViewController: UIViewController {
     
     var currentPlayerView: CurrentPlayerView!
     var groundView: GroundView!
-    var count: Int = 0
     var viewModel: GameViewModel = GameViewModel()
     var cancelBag = Set<AnyCancellable>()
     
@@ -41,7 +40,7 @@ class PlayViewController: UIViewController {
             .sink { [weak self] response in
                 guard let game = response?.data else { return }
                 guard let strongSelf = self else { return }
-                strongSelf.scoreHeaderView.configureTeamNames(away: game.awayTeam.name, home: game.homeTeam.name)
+                strongSelf.scoreHeaderView.configureNames(with: game.awayTeam.name, game.homeTeam.name)
                 strongSelf.scoreHeaderView.configureAway(score: game.awayTeam.score)
                 strongSelf.scoreHeaderView.configureHome(score: game.homeTeam.score)
                 strongSelf.currentPlayerView.configure(batter: game.batter, status: game.batterStatus)
@@ -94,10 +93,12 @@ extension PlayViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: PitcherRecordTableViewCell.identifier, for: indexPath) as? PitcherRecordTableViewCell,
-              let record = viewModel.game?.data.pitchHistories[indexPath.row] else {
+              let pitchHistories = viewModel.game?.data.pitchHistories else {
             return UITableViewCell()
         }
-        cell.configure(number: indexPath.row + 1, record: record)
+        let record = pitchHistories.reversed()[indexPath.row]
+        let count = pitchHistories.count
+        cell.configure(number: count - indexPath.row, record: record)
         return cell
     }
 }

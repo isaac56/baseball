@@ -32,7 +32,7 @@ class ScoreHeaderView: UIView {
         addSubview(headerView)
     }
     
-    func configureTeamNames(away: String, home: String) {
+    func configureNames(with away: String, _ home: String) {
         awayTeamName.text = away
         homeTeamName.text = home
     }

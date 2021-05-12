@@ -38,7 +38,7 @@ extension LobbyViewController: UITableViewDataSource {
         }
         
         let data = viewModel.rooms.data[indexPath.row]
-        cell.fill(data: data)
+        cell.fill(data)
         return cell
     }
 }
