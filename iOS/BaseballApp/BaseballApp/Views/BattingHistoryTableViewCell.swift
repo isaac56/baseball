@@ -19,12 +19,21 @@ class BattingHistoryTableViewCell: UITableViewCell {
         return UINib(nibName: BattingHistoryTableViewCell.identifier, bundle: nil)
     }
     
-    func configure(name: String, appearCount: Int, hits: Int, out: Int, ratio: String, isPlaying: Bool) {
-        batter.text = name
-        self.appearCount.text = "\(appearCount)"
-        self.hits.text = "\(hits)"
-        self.out.text = "\(out)"
-        self.average.text = ratio
-        self.backgroundColor = isPlaying ? .systemBlue : .clear
+    func configure(model: BattingHistoryTableViewCellModel) {
+        batter.text = model.name
+        self.appearCount.text = "\(model.appearCount)"
+        self.hits.text = "\(model.hits)"
+        self.out.text = "\(model.out)"
+        self.average.text = model.ratio
+        self.backgroundColor = model.isPlaying ? .systemBlue : .clear
     }
+}
+
+struct BattingHistoryTableViewCellModel {
+    let name: String?
+    let appearCount: Int
+    let hits: Int
+    let out: Int
+    let ratio: String?
+    let isPlaying: Bool
 }

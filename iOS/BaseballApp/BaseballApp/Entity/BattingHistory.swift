@@ -39,7 +39,7 @@ struct BattingHistory: Decodable, Hashable  {
     let appearCount: Int
     let hitCount: Int
     let outCount: Int
-    let hitRatio: Double
+    let hitRatio: Double?
     let isPlaying: Bool
     
     enum CodingKeys: String, CodingKey {

@@ -10,12 +10,6 @@ import Combine
 
 class GameHistoryViewModel {
     @Published var battingHistory: BattingHistoryData?
-    var awayBbattingHistory: [BattingHistory] {
-        return battingHistory?.awayTeam.battingHistory ?? []
-    }
-    var homeBbattingHistory: [BattingHistory] {
-        return battingHistory?.homeTeam.battingHistory ?? []
-    }
     private let gameHistoryUseCase = GameHistoryUseCase()
     private var cancelBag = Set<AnyCancellable>()
     
@@ -34,4 +28,69 @@ class GameHistoryViewModel {
         }
         .store(in: &cancelBag)
     }
+}
+
+extension GameHistoryViewModel {
+    var awayBattingHistory: [BattingHistory] {
+        return battingHistory?.awayTeam.battingHistory ?? []
+    }
+
+    var awayTotalAppearCount: Int {
+        var total = 0
+        self.awayBattingHistory.forEach {
+            total += $0.appearCount
+        }
+        return total
+    }
+    
+    var awayTotalHits: Int {
+        var total = 0
+        self.awayBattingHistory.forEach {
+            total += $0.hitCount
+        }
+        return total
+    }
+    
+    var awayTotalOut: Int {
+        var total = 0
+        self.awayBattingHistory.forEach {
+            total += $0.outCount
+        }
+        return total
+    }
+}
+
+extension GameHistoryViewModel {
+    var homeBattingHistory: [BattingHistory] {
+        return battingHistory?.homeTeam.battingHistory ?? []
+    }
+    var homeTotalAppearCount: Int {
+        var total = 0
+        self.homeBattingHistory.forEach {
+            total += $0.appearCount
+        }
+        return total
+    }
+    
+    var homeTotalHits: Int {
+        var total = 0
+        self.homeBattingHistory.forEach {
+            total += $0.hitCount
+        }
+        return total
+    }
+    
+    var homeTotalOut: Int {
+        var total = 0
+        self.homeBattingHistory.forEach {
+            total += $0.outCount
+        }
+        return total
+    }
+}
+
+struct TotalData {
+    let appearCount: Int
+    let hitCount: Int
+    let outCount: Int
 }

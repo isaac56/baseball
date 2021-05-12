@@ -40,16 +40,19 @@ class ScoreViewController: UIViewController {
                 strongSelf.setScore(for: strongSelf.homeScoreStackView, of: data?.awayTeam.scores)
                 strongSelf.setScore(for: strongSelf.awayScoreStackView, of: data?.homeTeam.scores)
                 strongSelf.items = data?.awayTeam.battingHistory ?? []
+                strongSelf.calculateTotalAway()
                 strongSelf.updateSnapshot()
             }
             .store(in: &cancelBag)
     }
     
     private func setupTableView() {
+        battingHistory.delegate = self
         battingHistory.dataSource = dataSource
         battingHistory.register(BattingHistoryTableViewCell.nib(),
                                 forCellReuseIdentifier: BattingHistoryTableViewCell.identifier)
         battingHistory.rowHeight = 30
+        battingHistory.sectionHeaderHeight = 30
     }
     
     private func setScore(for team: UIStackView, of numbers: [Int]?) {
@@ -58,7 +61,7 @@ class ScoreViewController: UIViewController {
         }
         numbers.forEach { number in
             let label = UILabel()
-            label.font = UIFont(name: "Helvetica", size: 14)
+            label.font = UIFont(name: "Helvetica", size: 13)
             label.text = "\(number)"
             team.addArrangedSubview(label)
         }
@@ -73,7 +76,8 @@ class ScoreViewController: UIViewController {
                 return UITableViewCell()
             }
             let ratio = self.formatting(target: model.hitRatio)
-            cell.configure(name: model.name, appearCount: model.appearCount, hits: model.hitCount, out: model.outCount, ratio: ratio, isPlaying: model.isPlaying)
+            let cellModel = BattingHistoryTableViewCellModel(name: model.name, appearCount: model.appearCount, hits: model.hitCount, out: model.outCount, ratio: ratio, isPlaying: model.isPlaying)
+            cell.configure(model: cellModel)
             return cell
         }
     }
@@ -85,19 +89,45 @@ class ScoreViewController: UIViewController {
         dataSource.apply(snapshot, animatingDifferences: animatingChange)
     }
     
-    private func formatting(target: Double) -> String {
+    private func formatting(target: Double?) -> String? {
+        guard let target = target else {
+            return nil
+        }
         return String(format: "%.1f",  target)
+    }
+    
+    private func calculateTotalAway() {
+        let total = BattingHistory(uniformNumber: 0, name: "Total", appearCount: gameHistoryViewModel.awayTotalAppearCount, hitCount: gameHistoryViewModel.awayTotalHits, outCount: gameHistoryViewModel.awayTotalOut, hitRatio: nil, isPlaying: false)
+        items.append(total)
+    }
+    
+    private func calculateTotalHome() {
+        let total = BattingHistory(uniformNumber: 0, name: "Total", appearCount: gameHistoryViewModel.homeTotalAppearCount, hitCount: gameHistoryViewModel.homeTotalHits, outCount: gameHistoryViewModel.homeTotalOut, hitRatio: nil, isPlaying: false)
+        items.append(total)
     }
     
     // MARK: IBAction
     
     @IBAction func selectTeam(_ sender: Any) {
         if segmentedTeam.selectedSegmentIndex == 0 {
-            items = gameHistoryViewModel.awayBbattingHistory
+            items = gameHistoryViewModel.awayBattingHistory
+            calculateTotalAway()
         } else {
-            items = gameHistoryViewModel.homeBbattingHistory
+            items = gameHistoryViewModel.homeBattingHistory
+            calculateTotalHome()
         }
         updateSnapshot()
+    }
+}
+
+extension ScoreViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let header = Bundle.main.loadNibNamed(BattingHistoryTableViewCell.identifier,
+                                                    owner: self,
+                                                    options: nil)?.first as? BattingHistoryTableViewCell else {
+            return nil
+        }
+        return header
     }
 }
 

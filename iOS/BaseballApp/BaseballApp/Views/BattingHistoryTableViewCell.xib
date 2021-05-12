@@ -18,7 +18,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Asj-A4-nvR">
-                        <rect key="frame" x="10" y="0.0" width="300" height="44"/>
+                        <rect key="frame" x="15" y="0.0" width="295" height="44"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Batting" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XcR-1I-Bg8">
                                 <rect key="frame" x="0.0" y="0.0" width="120" height="44"/>
@@ -30,28 +30,28 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="nFN-ud-6qK">
-                                <rect key="frame" x="128" y="0.0" width="172" height="44"/>
+                                <rect key="frame" x="128" y="0.0" width="167" height="44"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="타석" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NXV-s6-rUm">
-                                        <rect key="frame" x="0.0" y="0.0" width="28" height="44"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="27" height="44"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="안타" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TD3-YZ-ir3">
-                                        <rect key="frame" x="48" y="0.0" width="28" height="44"/>
+                                        <rect key="frame" x="47" y="0.0" width="26.5" height="44"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="아웃" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c9a-MB-YcR">
-                                        <rect key="frame" x="96" y="0.0" width="28" height="44"/>
+                                        <rect key="frame" x="93.5" y="0.0" width="27" height="44"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="평균" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TAU-oS-CcP">
-                                        <rect key="frame" x="144" y="0.0" width="28" height="44"/>
+                                        <rect key="frame" x="140.5" y="0.0" width="26.5" height="44"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -70,7 +70,7 @@
                 <constraints>
                     <constraint firstItem="Asj-A4-nvR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="GEl-vq-CfA"/>
                     <constraint firstAttribute="bottom" secondItem="Asj-A4-nvR" secondAttribute="bottom" id="QBz-af-l7L"/>
-                    <constraint firstItem="Asj-A4-nvR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="U31-t8-WHU"/>
+                    <constraint firstItem="Asj-A4-nvR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="U31-t8-WHU"/>
                     <constraint firstAttribute="trailing" secondItem="Asj-A4-nvR" secondAttribute="trailing" constant="10" id="eI8-l3-Fr9"/>
                 </constraints>
             </tableViewCellContentView>
