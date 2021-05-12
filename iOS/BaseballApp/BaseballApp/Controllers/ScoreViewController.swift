@@ -9,7 +9,10 @@ import UIKit
 import Combine
 
 class ScoreViewController: UIViewController {
-
+    @IBOutlet weak var awayTeamName: UILabel!
+    @IBOutlet weak var homeTeamName: UILabel!
+    @IBOutlet weak var awayScoreStackView: UIStackView!
+    @IBOutlet weak var homeScoreStackView: UIStackView!
     @IBOutlet weak var segmentedTeam: UISegmentedControl!
     @IBOutlet weak var battingHistory: UITableView!
     
@@ -35,13 +38,34 @@ class ScoreViewController: UIViewController {
         
         gameHistoryViewModel.$battingHistory
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.battingHistory.reloadData()
+            .sink { [weak self] data in
+                guard let strongSelf = self else { return }
+                strongSelf.awayTeamName.text = data?.awayTeam.teamName
+                strongSelf.homeTeamName.text = data?.homeTeam.teamName
+                strongSelf.setScore(for: strongSelf.homeScoreStackView, of: data?.awayTeam.scores)
+                strongSelf.setScore(for: strongSelf.awayScoreStackView, of: data?.homeTeam.scores)
+                strongSelf.battingHistory.reloadData()
             }
             .store(in: &cancelBag)
         gameHistoryViewModel.load()
     }
 
+    // MARK: Private Functions
+    private func setScore(for team: UIStackView, of numbers: [Int]?) {
+        guard let numbers = numbers else {
+            return
+        }
+        numbers.forEach { number in
+            let label = UILabel()
+            label.font = UIFont(name: "Helvetica", size: 14)
+            label.text = "\(number)"
+            team.addArrangedSubview(label)
+        }
+    }
+    
+    
+    // MARK: UITableViewDiffableDataSource
+    
     func makeDataSource() -> UITableViewDiffableDataSource<Section, BattingHistory> {
         return UITableViewDiffableDataSource(tableView: battingHistory) { tableView, indexPath, model -> UITableViewCell? in
             guard let cell = tableView.dequeueReusableCell(withIdentifier: BattingHistoryTableViewCell.identifier,
@@ -65,24 +89,6 @@ class ScoreViewController: UIViewController {
         return String(format: "%.1f",  target)
     }
 }
-
-//extension ScoreViewController: UITableViewDataSource {
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return gameHistoryViewModel.battingHistory?.awayTeam.battingHistory.count ?? 0
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        guard let cell = tableView.dequeueReusableCell(withIdentifier: BattingHistoryTableViewCell.identifier, for: indexPath) as? BattingHistoryTableViewCell else {
-//            return UITableViewCell()
-//        }
-//        guard let history = gameHistoryViewModel.battingHistory else { return UITableViewCell() }
-//        let targetTeam = segmentedTeam.selectedSegmentIndex == 0 ?  history.awayTeam : history.awayTeam
-//        let data = targetTeam.battingHistory[indexPath.row]
-//        let ratio = formatting(target: data.hitRatio)
-//        cell.configure(name: data.name, appearCount: data.appearCount, hits: data.hitCount, out: data.outCount, ratio: ratio)
-//        return cell
-//    }
-//}
 
 enum Section {
     case one
