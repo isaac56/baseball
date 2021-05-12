@@ -61,8 +61,10 @@ class ScoreViewController: UIViewController {
         }
         numbers.forEach { number in
             let label = UILabel()
+            label.widthAnchor.constraint(equalToConstant: 15).isActive = true
             label.font = UIFont(name: "Helvetica", size: 13)
             label.text = "\(number)"
+            label.textAlignment = .center
             team.addArrangedSubview(label)
         }
     }
@@ -127,7 +129,12 @@ extension ScoreViewController: UITableViewDelegate {
                                                     options: nil)?.first as? BattingHistoryTableViewCell else {
             return nil
         }
+        header.backgroundColor = .systemGray
         return header
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView()
     }
 }
 
