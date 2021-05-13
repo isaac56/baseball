@@ -22,6 +22,8 @@ class GroundView: UIView {
     private var thirdBaseLayer = CAShapeLayer()
     
     override func awakeFromNib() {
+        super.awakeFromNib()
+        
         self.backgroundColor = .systemGray3
     }
     
