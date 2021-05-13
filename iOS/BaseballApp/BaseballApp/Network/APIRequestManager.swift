@@ -10,6 +10,8 @@ import Combine
 
 class APIRequestManager {
     
+    private let decoder = JSONDecoder()
+    
     private func createRequest(url: URL, method: HTTPMethod, httpBody: Data? = nil) -> URLRequest {
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
@@ -19,9 +21,10 @@ class APIRequestManager {
   
     func fetch<T: Decodable>(url: URL, method: HTTPMethod, httpBody: Data? = nil) -> AnyPublisher<T, Error> {
         let request = createRequest(url: url, method: method)
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
         return URLSession.shared.dataTaskPublisher(for: request)
             .map(\.data)
-            .decode(type: T.self, decoder: JSONDecoder())
+            .decode(type: T.self, decoder: decoder)
             .eraseToAnyPublisher()
     }
 }

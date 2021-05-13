@@ -23,33 +23,17 @@ struct Game: Decodable {
     let pitcherStatus: String
     let batter: Player
     let batterStatus: String
-    let base1: String?
-    let base2: String?
-    let base3: String?
+    let base1: Player?
+    let base2: Player?
+    let base3: Player?
     let pitchHistories: [Record]
     let myRole: String
-    
-    enum CodingKeys: String, CodingKey {
-        case strike, ball, out, inning, halves, pitcher, batter, base1, base2, base3
-        case awayTeam = "away_team"
-        case homeTeam = "home_team"
-        case pitcherStatus = "pitcher_status"
-        case batterStatus = "batter_status"
-        case pitchHistories = "pitch_histories"
-        case myRole = "my_role"
-    }
 }
 
 struct Player: Decodable {
     let teamId: Int
     let uniformNumber: Int
     let name: String
-    
-    enum CodingKeys: String, CodingKey {
-        case name
-        case teamId = "team_id"
-        case uniformNumber = "uniform_number"
-    }
 }
 
 struct Record: Decodable {
@@ -58,12 +42,6 @@ struct Record: Decodable {
     let result: String
     let strikeCount: Int
     let ballCount: Int
-    
-    enum CodingKeys: String, CodingKey {
-        case pitcher, batter, result
-        case strikeCount = "strike_count"
-        case ballCount = "ball_count"
-    }
 }
 
 struct Team: Decodable {
