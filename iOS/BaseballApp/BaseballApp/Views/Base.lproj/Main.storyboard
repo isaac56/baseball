@@ -132,7 +132,7 @@
         <!--Play-->
         <scene sceneID="Mw2-jP-2LV">
             <objects>
-                <viewController storyboardIdentifier="PlayViewController" id="xr9-Vc-vSI" customClass="PlayViewController" customModule="BaseballApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="xr9-Vc-vSI" customClass="PlayViewController" customModule="BaseballApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0wf-Uc-gfG">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -209,7 +209,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3yM-E6-IYY">
                                 <rect key="frame" x="0.0" y="88" width="414" height="100"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="HeJ-tu-ggx">
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="HeJ-tu-ggx">
                                         <rect key="frame" x="10" y="0.0" width="394" height="100"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Wry-Z4-LBI">
@@ -229,8 +229,8 @@
                                                     </label>
                                                 </subviews>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="vVv-cm-55N">
-                                                <rect key="frame" x="60.5" y="24" width="333.5" height="76"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="vVv-cm-55N">
+                                                <rect key="frame" x="53.5" y="0.0" width="340.5" height="100"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="8Lj-Wy-b0I">
                                                         <rect key="frame" x="0.0" y="0.0" width="290" height="16"/>
@@ -337,14 +337,17 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="200" placeholderIntrinsicHeight="20" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="For-mS-idW">
-                                                        <rect key="frame" x="0.0" y="26" width="200" height="20"/>
+                                                        <rect key="frame" x="0.0" y="38" width="200" height="20"/>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="200" placeholderIntrinsicHeight="20" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="k8c-RA-wvo">
-                                                        <rect key="frame" x="0.0" y="56" width="200" height="20"/>
+                                                        <rect key="frame" x="0.0" y="80" width="200" height="20"/>
                                                     </stackView>
                                                 </subviews>
                                             </stackView>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="100" id="7SP-Yt-rQb"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -366,7 +369,7 @@
                                     <segment title="Home"/>
                                 </segments>
                                 <connections>
-                                    <action selector="selectTeam:" destination="owF-YY-FIO" eventType="touchUpInside" id="TWK-Lv-LTg"/>
+                                    <action selector="selectTeam:" destination="owF-YY-FIO" eventType="touchUpInside" id="uHP-y9-VtI"/>
                                 </connections>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="LTu-Ew-p9F">
@@ -402,12 +405,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eeF-n3-4he" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2025" y="836"/>
+            <point key="canvasLocation" x="2024.6376811594205" y="835.71428571428567"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="3CR-Gu-zUn">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="z87-J8-Gpn" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="PlayViewController" automaticallyAdjustsScrollViewInsets="NO" id="z87-J8-Gpn" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="hRB-4V-ae3"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="TFG-Mk-uuy">

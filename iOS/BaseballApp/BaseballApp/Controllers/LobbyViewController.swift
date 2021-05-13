@@ -54,6 +54,7 @@ extension LobbyViewController: UITableViewDelegate {
         let chooseAway = UIAlertAction(title: data.awayTeam, style: .default) { (_) in
             self.viewModel.join(id: data.id, venue: .home) { [weak self] in
                 DispatchQueue.main.async {
+                    vc.modalPresentationStyle = .fullScreen
                     self?.present(vc, animated: true)
                 }
             }
@@ -61,6 +62,7 @@ extension LobbyViewController: UITableViewDelegate {
         let chooseHome = UIAlertAction(title: data.homeTeam, style: .default) { (_) in
             self.viewModel.join(id: data.id, venue: .home) { [weak self] in
                 DispatchQueue.main.async {
+                    vc.modalPresentationStyle = .fullScreen
                     self?.present(vc, animated: true)
                 }
             }
