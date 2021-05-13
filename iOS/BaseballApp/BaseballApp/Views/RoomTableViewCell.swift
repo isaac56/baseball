@@ -13,9 +13,15 @@ class RoomTableViewCell: UITableViewCell {
     @IBOutlet weak var awayTeamName: UILabel!
     @IBOutlet weak var homeTeamName: UILabel!
 
-    func fill(_ data: Room) {
-        roomNumber.text = "\(data.id)"
-        awayTeamName.text = data.awayTeam
-        homeTeamName.text = data.homeTeam
+    func fill(with viewModel: RoomTableViewCellViewModel) {
+        roomNumber.text = "Game " + viewModel.roomNumber
+        awayTeamName.text = viewModel.awayTeamName
+        homeTeamName.text = viewModel.homeTeamName
     }
+}
+
+struct RoomTableViewCellViewModel {
+    let roomNumber: String
+    let awayTeamName: String
+    let homeTeamName: String
 }
