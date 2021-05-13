@@ -9,7 +9,12 @@ import Foundation
 import Combine
 
 class GameViewModel {
-    @Published var game: GameResponse?
+    @Published var game: GameResponse? {
+        didSet {
+            isBatterChanged = (game?.data.batter.uniformNumber != oldValue?.data.batter.uniformNumber) && (oldValue != nil)
+        }
+    }
+    @Published var isBatterChanged: Bool = false
     let gameUseCase = GameUseCase()
     var cancelBag = Set<AnyCancellable>()
     
