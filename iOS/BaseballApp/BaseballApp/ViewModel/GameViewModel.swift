@@ -23,8 +23,8 @@ class GameViewModel {
             case .failure(let error):
                 print(error.localizedDescription)
             }
-        } receiveValue: { (response) in
-            self.game = response
+        } receiveValue: { [weak self] (response) in
+            self?.game = response
             completionHandler(response.data)
         }
         .store(in: &cancelBag)
