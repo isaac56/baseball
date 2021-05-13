@@ -21,7 +21,8 @@ class PitcherRecordTableViewCell: UITableViewCell {
         number.layer.cornerRadius = number.frame.width / 2
     }
     
-    func configure(record: Record) {
+    func configure(number: Int, record: Record) {
+        self.number.text = "\(number)"
         result.text = record.result
         let strike = record.strikeCount
         let ball = record.ballCount

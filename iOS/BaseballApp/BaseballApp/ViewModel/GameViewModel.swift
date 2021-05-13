@@ -13,7 +13,7 @@ class GameViewModel {
     let gameUseCase = GameUseCase()
     var cancelBag = Set<AnyCancellable>()
     
-    func load(completionHandler: @escaping (Game) -> Void) {
+    func load() {
         guard let url = Endpoint.url(path: Endpoint.Path.gameStatus) else { return }
         let publisher = gameUseCase.start(url: url)
         publisher.sink { (completion) in
@@ -25,8 +25,21 @@ class GameViewModel {
             }
         } receiveValue: { [weak self] (response) in
             self?.game = response
-            completionHandler(response.data)
         }
+        .store(in: &cancelBag)
+    }
+    
+    func requestPitch() {
+        guard let url = Endpoint.url(path: Endpoint.Path.pitchResult) else { return }
+        let publisher = gameUseCase.pitch(url: url)
+        publisher.sink { [weak self] (completion) in
+            switch completion {
+            case .finished:
+                self?.load()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        } receiveValue: { _ in }
         .store(in: &cancelBag)
     }
 }

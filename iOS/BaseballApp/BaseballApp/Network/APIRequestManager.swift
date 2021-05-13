@@ -16,6 +16,7 @@ class APIRequestManager {
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
         request.httpBody = httpBody
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         return request
     }
   
@@ -30,9 +31,13 @@ class APIRequestManager {
 }
 
 struct Endpoint {
+    static let basePath = "/game"
+    
     enum Path {
-        static let gameList = "/game/list"
-        static let gameStatus = "/game/status"
+        static let gameList = basePath + "/list"
+        static let gameStatus = basePath + "/status"
+        static let pitchResult = basePath + "/status/pitch-result"
+        static let gameHistory = basePath + "/history"
     }
     
     static func url(path: String) -> URL? {
