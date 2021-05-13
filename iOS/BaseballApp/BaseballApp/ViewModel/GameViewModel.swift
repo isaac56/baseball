@@ -9,7 +9,12 @@ import Foundation
 import Combine
 
 class GameViewModel {
-    @Published var game: GameResponse?
+    @Published var game: GameResponse? {
+        didSet {
+            isBatterChanged = (game?.data.batter.uniformNumber != oldValue?.data.batter.uniformNumber) && (oldValue != nil)
+        }
+    }
+    @Published var isBatterChanged: Bool = false
     let gameUseCase = GameUseCase()
     var cancelBag = Set<AnyCancellable>()
     
@@ -41,5 +46,31 @@ class GameViewModel {
             }
         } receiveValue: { _ in }
         .store(in: &cancelBag)
+    }
+    
+    func convert(inning: String, halves: String) -> String {
+        var convertedHalves = ""
+        switch halves {
+        case "TOP":
+            convertedHalves = "초"
+        case "BOTTOM":
+            convertedHalves = "말"
+        default:
+            convertedHalves = ""
+        }
+        return "\(inning)회\(convertedHalves)"
+    }
+    
+    func convert(myRole: String) -> String {
+        var convertedRole = ""
+        switch myRole {
+        case "ATTACK":
+            convertedRole = "공격"
+        case "DEFENSE":
+            convertedRole = "수비"
+        default:
+            convertedRole = ""
+        }
+        return convertedRole
     }
 }

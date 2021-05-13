@@ -21,7 +21,6 @@ class PlayViewController: UIViewController {
     var currentPlayerView: CurrentPlayerView!
     var groundView: GroundView!
     var header: ScoreHeaderView? = UIView.loadFromNib()
-    var count: Int = 0
     var viewModel: GameViewModel = GameViewModel()
     var cancelBag = Set<AnyCancellable>()
     
@@ -35,20 +34,52 @@ class PlayViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         header?.frame = scoreHeaderView.bounds
-        scoreHeaderView.addSubview(header!)
+        guard let header = header else { return }
+        scoreHeaderView.addSubview(header)
         pitcherHistoryTableView.dataSource = self
 
         viewModel.$game
             .receive(on: DispatchQueue.main)
             .sink { [weak self] response in
                 guard let game = response?.data else { return }
-                self?.header?.configureAway(score: game.awayTeam.score)
-                self?.header?.configureHome(score: game.homeTeam.score)
-                self?.header?.configureTeamNames(away: game.awayTeam.name, home: game.homeTeam.name)
-                self?.currentPlayerView.configure(batter: game.batter, status: game.batterStatus)
-                self?.currentPlayerView.configure(pitcher: game.pitcher, status: game.pitcherStatus)
-                self?.currentPlayerView.configure(playerRole: game.myRole)
-                self?.pitcherHistoryTableView.reloadData()
+                guard let strongSelf = self else { return }
+                strongSelf.header?.configureNames(with: game.awayTeam.name, game.homeTeam.name)
+                strongSelf.header?.configureAway(score: game.awayTeam.score)
+                strongSelf.header?.configureHome(score: game.homeTeam.score)
+                strongSelf.currentPlayerView.configure(batter: game.batter, status: game.batterStatus)
+                strongSelf.currentPlayerView.configure(pitcher: game.pitcher, status: game.pitcherStatus)
+                strongSelf.currentPlayerView.configure(playerRole: game.myRole)
+                strongSelf.groundView.configure(inningInfo: strongSelf.viewModel.convert(inning: game.inning, halves: game.halves))
+                strongSelf.groundView.configure(myRole: strongSelf.viewModel.convert(myRole: game.myRole))
+                strongSelf.groundView.configure(strikeCount: game.strike)
+                strongSelf.groundView.configure(ballCount: game.ball)
+                strongSelf.groundView.configure(outCount: game.out)
+                NSLayoutConstraint.deactivate(strongSelf.pitcherHistoryTableView.constraints)
+                let heightConstraint = NSLayoutConstraint(item: strongSelf.pitcherHistoryTableView as Any, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1.0, constant: Constant.tableRowHeight * CGFloat(game.pitchHistories.count))
+                strongSelf.pitcherHistoryTableView.addConstraint(heightConstraint)
+                strongSelf.pitcherHistoryTableView.reloadData()
+            }
+            .store(in: &cancelBag)
+        
+        viewModel.$isBatterChanged
+            .receive(on: DispatchQueue.main)
+            .zip(viewModel.$game)
+            .sink { [weak self] response in
+                if response.0 {
+                    self?.groundView.move()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.55) {
+                        self?.groundView.showRunners()
+                        self?.groundView.configureBatterLayer(with: response.1?.data.batter.uniformNumber ?? 0)
+                        self?.groundView.configureRunner1Layer(with: response.1?.data.base1?.uniformNumber)
+                        self?.groundView.configureRunner2Layer(with: response.1?.data.base2?.uniformNumber)
+                        self?.groundView.configureRunner3Layer(with: response.1?.data.base3?.uniformNumber)
+                    }
+                } else {
+                    self?.groundView.configureBatterLayer(with: response.1?.data.batter.uniformNumber ?? 0)
+                    self?.groundView.configureRunner1Layer(with: response.1?.data.base1?.uniformNumber)
+                    self?.groundView.configureRunner2Layer(with: response.1?.data.base2?.uniformNumber)
+                    self?.groundView.configureRunner3Layer(with: response.1?.data.base3?.uniformNumber)
+                }
             }
             .store(in: &cancelBag)
         
@@ -76,7 +107,6 @@ class PlayViewController: UIViewController {
         NSLayoutConstraint.activate([
             groundView.heightAnchor.constraint(equalToConstant: view.frame.width),
             currentPlayerView.heightAnchor.constraint(equalToConstant: Constant.currentPlayerViewHeight),
-            pitcherHistoryTableView.heightAnchor.constraint(equalToConstant: Constant.tableRowHeight * CGFloat(500)),
             pitcherHistoryTableView.leadingAnchor.constraint(equalTo: playInformationStackView.leadingAnchor),
             pitcherHistoryTableView.trailingAnchor.constraint(equalTo: playInformationStackView.trailingAnchor),
         ])
@@ -90,10 +120,12 @@ extension PlayViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: PitcherRecordTableViewCell.identifier, for: indexPath) as? PitcherRecordTableViewCell,
-              let record = viewModel.game?.data.pitchHistories[indexPath.row] else {
+              let pitchHistories = viewModel.game?.data.pitchHistories else {
             return UITableViewCell()
         }
-        cell.configure(number: indexPath.row + 1, record: record)
+        let record = pitchHistories.reversed()[indexPath.row]
+        let count = pitchHistories.count
+        cell.configure(number: count - indexPath.row, record: record)
         return cell
     }
 }

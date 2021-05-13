@@ -14,7 +14,7 @@ class ScoreHeaderView: UIView {
     @IBOutlet weak var awayTeamScore: UILabel!
     @IBOutlet weak var homeTeamScore: UILabel!
     
-    func configureTeamNames(away: String, home: String) {
+    func configureNames(with away: String, _ home: String) {
         awayTeamName.text = away
         homeTeamName.text = home
     }
