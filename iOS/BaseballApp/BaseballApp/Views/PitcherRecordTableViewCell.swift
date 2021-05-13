@@ -8,7 +8,7 @@
 import UIKit
 
 class PitcherRecordTableViewCell: UITableViewCell {
-    @IBOutlet weak var numberLabel: UILabel!
+    @IBOutlet weak var number: UILabel!
     @IBOutlet weak var result: UILabel!
     @IBOutlet weak var count: UILabel!
 
@@ -17,8 +17,8 @@ class PitcherRecordTableViewCell: UITableViewCell {
     }
     
     override func awakeFromNib() {
-        numberLabel.layer.masksToBounds = true
-        numberLabel.layer.cornerRadius = numberLabel.frame.width / 2
+        number.layer.masksToBounds = true
+        number.layer.cornerRadius = number.frame.width / 2
     }
     
     func configure(record: Record) {
