@@ -94,7 +94,7 @@ class ScoreViewController: UIViewController {
                 return UITableViewCell()
             }
             let ratio = self.formatting(target: model.hitRatio)
-            let cellModel = BattingHistoryTableViewCellModel(name: model.name, appearCount: model.appearCount, hits: model.hitCount, out: model.outCount, ratio: ratio, isPlaying: model.isPlaying)
+            let cellModel = BattingHistoryTableViewCellModel(name: model.name, appearCount: model.appearCount, hits: model.hitCount, out: model.outCount, ratio: ratio, isPlaying: model.playing)
             cell.configure(model: cellModel)
             return cell
         }
@@ -115,12 +115,12 @@ class ScoreViewController: UIViewController {
     }
     
     private func calculateTotalAway() {
-        let total = BattingHistory(uniformNumber: 0, name: "Total", appearCount: gameHistoryViewModel.awayTotalAppearCount, hitCount: gameHistoryViewModel.awayTotalHits, outCount: gameHistoryViewModel.awayTotalOut, hitRatio: nil, isPlaying: false)
+        let total = BattingHistory(uniformNumber: 0, name: "Total", appearCount: gameHistoryViewModel.awayTotalAppearCount, hitCount: gameHistoryViewModel.awayTotalHits, outCount: gameHistoryViewModel.awayTotalOut, hitRatio: nil, playing: false)
         items.append(total)
     }
     
     private func calculateTotalHome() {
-        let total = BattingHistory(uniformNumber: 0, name: "Total", appearCount: gameHistoryViewModel.homeTotalAppearCount, hitCount: gameHistoryViewModel.homeTotalHits, outCount: gameHistoryViewModel.homeTotalOut, hitRatio: nil, isPlaying: false)
+        let total = BattingHistory(uniformNumber: 0, name: "Total", appearCount: gameHistoryViewModel.homeTotalAppearCount, hitCount: gameHistoryViewModel.homeTotalHits, outCount: gameHistoryViewModel.homeTotalOut, hitRatio: nil, playing: false)
         items.append(total)
     }
     

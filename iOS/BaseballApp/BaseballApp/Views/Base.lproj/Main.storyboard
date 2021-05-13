@@ -359,7 +359,7 @@
                                     <segment title="Home"/>
                                 </segments>
                                 <connections>
-                                    <action selector="selectTeam:" destination="owF-YY-FIO" eventType="valueChanged" id="xBG-MZ-my9"/>
+                                    <action selector="selectTeam:" destination="owF-YY-FIO" eventType="touchUpInside" id="TWK-Lv-LTg"/>
                                 </connections>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="LTu-Ew-p9F">
@@ -385,12 +385,12 @@
                     </view>
                     <navigationItem key="navigationItem" id="sDt-fR-Yl3"/>
                     <connections>
-                        <outlet property="awayScoreStackView" destination="For-mS-idW" id="ugz-Z1-ZMY"/>
-                        <outlet property="awayTeamName" destination="fyr-Rr-fxz" id="iua-nO-nge"/>
-                        <outlet property="battingHistory" destination="LTu-Ew-p9F" id="qQz-bY-5Ph"/>
-                        <outlet property="homeScoreStackView" destination="k8c-RA-wvo" id="5Iy-68-b1p"/>
-                        <outlet property="homeTeamName" destination="OEE-Vk-qlj" id="xUc-Ad-zYg"/>
-                        <outlet property="segmentedTeam" destination="uLY-hA-9tb" id="NNl-wJ-Q2E"/>
+                        <outlet property="awayScoreStackView" destination="For-mS-idW" id="jcQ-v8-jc5"/>
+                        <outlet property="awayTeamName" destination="fyr-Rr-fxz" id="1Rb-8A-zin"/>
+                        <outlet property="battingHistory" destination="LTu-Ew-p9F" id="7Gx-fM-8M9"/>
+                        <outlet property="homeScoreStackView" destination="k8c-RA-wvo" id="qmf-KG-7fd"/>
+                        <outlet property="homeTeamName" destination="OEE-Vk-qlj" id="IsG-r9-j9Z"/>
+                        <outlet property="segmentedTeam" destination="uLY-hA-9tb" id="B3y-ew-GEp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eeF-n3-4he" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
