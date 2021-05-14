@@ -22,6 +22,7 @@
 		D03CF0842642781400C00729 /* ScoreHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D03CF0832642781400C00729 /* ScoreHeaderView.xib */; };
 		D03CF0892642782500C00729 /* ScoreHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03CF0882642782500C00729 /* ScoreHeaderView.swift */; };
 		D03CF0A02642890000C00729 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03CF09F2642890000C00729 /* GameViewModel.swift */; };
+		D03EC3FF264D2586009F4943 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03EC3FE264D2586009F4943 /* LoginViewController.swift */; };
 		D097D5B4264D042700E40EC5 /* ScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D097D5B3264D042700E40EC5 /* ScoreViewController.swift */; };
 		D097D5B9264D04A000E40EC5 /* GameHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D097D5B8264D04A000E40EC5 /* GameHistoryViewModel.swift */; };
 		D097D5BE264D04AD00E40EC5 /* GameHistoryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D097D5BD264D04AD00E40EC5 /* GameHistoryUseCase.swift */; };
@@ -83,6 +84,7 @@
 		D03CF0832642781400C00729 /* ScoreHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ScoreHeaderView.xib; path = BaseballApp/Views/ScoreHeaderView.xib; sourceTree = SOURCE_ROOT; };
 		D03CF0882642782500C00729 /* ScoreHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreHeaderView.swift; sourceTree = "<group>"; };
 		D03CF09F2642890000C00729 /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
+		D03EC3FE264D2586009F4943 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = BaseballApp/Views/LoginViewController.swift; sourceTree = SOURCE_ROOT; };
 		D097D5B3264D042700E40EC5 /* ScoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreViewController.swift; sourceTree = "<group>"; };
 		D097D5B8264D04A000E40EC5 /* GameHistoryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameHistoryViewModel.swift; sourceTree = "<group>"; };
 		D097D5BD264D04AD00E40EC5 /* GameHistoryUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameHistoryUseCase.swift; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 		D03CF05D2641492800C00729 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D03EC3FE264D2586009F4943 /* LoginViewController.swift */,
 				D03CF0152640E61900C00729 /* LobbyViewController.swift */,
 				E4BE320F2641356C006E294A /* PlayViewController.swift */,
 				D097D5B3264D042700E40EC5 /* ScoreViewController.swift */,
@@ -413,6 +416,7 @@
 				E4BE320926412F53006E294A /* PitcherRecordTableViewCell.swift in Sources */,
 				E4BE320026412390006E294A /* GroundView.swift in Sources */,
 				E4BE321226425878006E294A /* APIRequestManager.swift in Sources */,
+				D03EC3FF264D2586009F4943 /* LoginViewController.swift in Sources */,
 				D03CF0622641493C00C00729 /* Room.swift in Sources */,
 				D03CF0122640E61900C00729 /* AppDelegate.swift in Sources */,
 				D03CF0142640E61900C00729 /* SceneDelegate.swift in Sources */,

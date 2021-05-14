@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="z87-J8-Gpn">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
@@ -8,6 +8,34 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Login View Controller-->
+        <scene sceneID="0FK-UG-VEk">
+            <objects>
+                <viewController id="5un-7q-SpP" customClass="LoginViewController" customModule="BaseballApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="PnQ-nk-eLt">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fHn-hu-CiM">
+                                <rect key="frame" x="184" y="433" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="login" destination="5un-7q-SpP" eventType="touchUpInside" id="1Iy-Mi-bor"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="PmN-v2-2Jj"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="fHn-hu-CiM" firstAttribute="centerX" secondItem="PnQ-nk-eLt" secondAttribute="centerX" id="Wmm-Gx-CI7"/>
+                            <constraint firstItem="fHn-hu-CiM" firstAttribute="centerY" secondItem="PnQ-nk-eLt" secondAttribute="centerY" id="p8b-Pd-2sc"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x2x-wy-QTh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1216" y="110"/>
+        </scene>
         <!--Lobby View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -127,7 +155,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-372.46376811594206" y="109.82142857142857"/>
+            <point key="canvasLocation" x="-422" y="110"/>
         </scene>
         <!--Play-->
         <scene sceneID="Mw2-jP-2LV">
@@ -425,7 +453,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A8k-gt-ATL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="417.39130434782612" y="109.82142857142857"/>
+            <point key="canvasLocation" x="361" y="110"/>
         </scene>
         <!--Scores-->
         <scene sceneID="29y-Ea-b1O">

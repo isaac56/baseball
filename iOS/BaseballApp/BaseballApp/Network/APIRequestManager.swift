@@ -24,7 +24,18 @@ class APIRequestManager {
         let request = createRequest(url: url, method: method, httpBody: httpBody)
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         return URLSession.shared.dataTaskPublisher(for: request)
-            .map(\.data)
+            .tryMap() { element -> Data in
+                guard let httpResponse = element.response as? HTTPURLResponse else {
+                    throw URLError(.badServerResponse)
+                }
+                switch httpResponse.statusCode {
+                case 200: print("success")
+                case 401: print("401 - bad request")
+                default: break
+                }
+                return element.data
+            }
+            //.map(\.data)
             .decode(type: T.self, decoder: decoder)
             .eraseToAnyPublisher()
     }
@@ -39,14 +50,16 @@ struct Endpoint {
         static let pitchResult = basePath + "/status/pitch-result"
         static let gameHistory = basePath + "/history"
         static let join = basePath + "/joining"
+        static let login = "/user/login/oauth/github"
     }
     
-    static func url(path: String) -> URL? {
+    static func url(path: String, queryItem: [URLQueryItem] = []) -> URL? {
         var components = URLComponents()
         components.scheme = "http"
         components.host = "52.78.19.43"
         components.port = 8080
         components.path = path
+        components.queryItems = queryItem
         return components.url
     }
 }

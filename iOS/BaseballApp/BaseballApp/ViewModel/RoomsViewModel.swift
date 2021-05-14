@@ -40,7 +40,6 @@ class RoomsViewModel {
                 print(error)
             }
         } receiveValue: { (response) in
-            print(response.error)
         }
         .store(in: &cancelBag)
     }
