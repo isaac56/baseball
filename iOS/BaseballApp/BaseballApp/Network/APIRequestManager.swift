@@ -30,7 +30,7 @@ class APIRequestManager {
                     throw URLError(.badServerResponse)
                 }
                 switch httpResponse.statusCode {
-                case 200: print("success")
+                //case 200: break
                 case 401: print("401 - bad request")
                     throw CustomError.badRequest
                 default: break

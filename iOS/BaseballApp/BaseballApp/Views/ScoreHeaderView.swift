@@ -36,4 +36,14 @@ class ScoreHeaderView: UIView {
             self.awayTeamName.textColor = .black
         }
     }
+    
+    func configure(awayTeam: Team, myRole: Role.RawValue) {
+        if myRole == awayTeam.role {
+            awayTeamName.backgroundColor = .systemYellow
+            homeTeamName.backgroundColor = .white
+        } else {
+            homeTeamName.backgroundColor = .systemYellow
+            awayTeamName.backgroundColor = .white
+        }
+    }
 }

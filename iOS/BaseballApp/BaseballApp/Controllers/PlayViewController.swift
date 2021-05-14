@@ -23,6 +23,8 @@ class PlayViewController: UIViewController {
     var header: ScoreHeaderView? = UIView.loadFromNib()
     var viewModel: GameViewModel = GameViewModel()
     var cancelBag = Set<AnyCancellable>()
+    var timer: Timer?
+    var number = 1
     
     lazy var handler: (CustomError) -> Void = {
         switch $0 {
@@ -40,6 +42,7 @@ class PlayViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         viewModel.completionHandler = handler
         header?.frame = scoreHeaderView.bounds
         guard let header = header else { return }
@@ -55,6 +58,7 @@ class PlayViewController: UIViewController {
                 strongSelf.header?.configureNames(with: game.awayTeam.name, game.homeTeam.name)
                 strongSelf.header?.configureAway(score: game.awayTeam.score)
                 strongSelf.header?.configureHome(score: game.homeTeam.score)
+                strongSelf.header?.configure(awayTeam: game.awayTeam, myRole: game.myRole)
                 strongSelf.currentPlayerView.configure(batter: game.batter, status: game.batterStatus)
                 strongSelf.currentPlayerView.configure(pitcher: game.pitcher, status: game.pitcherStatus)
                 strongSelf.currentPlayerView.configure(playerRole: game.myRole)
@@ -63,6 +67,7 @@ class PlayViewController: UIViewController {
                 strongSelf.groundView.configure(strikeCount: game.strike)
                 strongSelf.groundView.configure(ballCount: game.ball)
                 strongSelf.groundView.configure(outCount: game.out)
+                strongSelf.check(myRole: game.myRole)
                 NSLayoutConstraint.deactivate(strongSelf.pitcherHistoryTableView.constraints)
                 let heightConstraint = NSLayoutConstraint(item: strongSelf.pitcherHistoryTableView as Any, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1.0, constant: Constant.tableRowHeight * CGFloat(game.pitchHistories.count))
                 strongSelf.pitcherHistoryTableView.addConstraint(heightConstraint)
@@ -76,7 +81,7 @@ class PlayViewController: UIViewController {
             .sink { [weak self] response in
                 if response.0 {
                     self?.groundView.moveRunners()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                         self?.groundView.showRunners()
                         self?.groundView.configureBatterLayer(with: response.1?.data.batter.uniformNumber ?? 0)
                         self?.groundView.configureRunner1Layer(with: response.1?.data.base1?.uniformNumber)
@@ -93,6 +98,31 @@ class PlayViewController: UIViewController {
             .store(in: &cancelBag)
         
         configureUI()
+        viewModel.load()
+    }
+    
+    func check(myRole: Role.RawValue) {
+        viewModel.$isRoleChanged
+            .receive(on: DispatchQueue.main)
+            .zip(viewModel.$game)
+            .sink { [weak self] response in
+                if response.0 && myRole == "ATTACK" {
+                    self?.timer = self?.createTimer()
+                } else if response.0 && myRole == "DEFENSE" {
+                    self?.timer?.invalidate()
+                }
+            }
+            .store(in: &cancelBag)
+    }
+    
+    func createTimer() -> Timer {
+        let timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateView), userInfo: nil, repeats: true)
+        return timer
+    }
+    
+    @objc func updateView() {
+        print("\(number) timer")
+        number += 1
         viewModel.load()
     }
     

@@ -12,9 +12,12 @@ class GameViewModel {
     @Published var game: GameResponse? {
         didSet {
             isBatterChanged = (game?.data.batter.uniformNumber != oldValue?.data.batter.uniformNumber) && (oldValue != nil)
+            isRoleChanged = (game?.data.myRole != oldValue?.data.myRole) || (oldValue == nil)
+            print(isRoleChanged, game?.data.myRole, oldValue?.data.myRole)
         }
     }
     @Published var isBatterChanged: Bool = false
+    @Published var isRoleChanged: Bool = false
     let gameUseCase = GameUseCase()
     var cancelBag = Set<AnyCancellable>()
     var completionHandler: ((CustomError) -> Void)?
