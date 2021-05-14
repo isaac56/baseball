@@ -38,6 +38,7 @@ struct Endpoint {
         static let gameStatus = basePath + "/status"
         static let pitchResult = basePath + "/status/pitch-result"
         static let gameHistory = basePath + "/history"
+        static let join = basePath + "/joining"
     }
     
     static func url(path: String) -> URL? {

@@ -8,7 +8,8 @@
 import Foundation
 
 struct RoomResponse: Decodable {
-    let data: [Room]
+    let data: [Room]?
+    let error: String?
 }
 
 struct Room: Decodable {
