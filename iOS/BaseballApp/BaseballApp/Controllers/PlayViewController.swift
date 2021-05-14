@@ -66,8 +66,8 @@ class PlayViewController: UIViewController {
             .zip(viewModel.$game)
             .sink { [weak self] response in
                 if response.0 {
-                    self?.groundView.move()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.55) {
+                    self?.groundView.moveRunners()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                         self?.groundView.showRunners()
                         self?.groundView.configureBatterLayer(with: response.1?.data.batter.uniformNumber ?? 0)
                         self?.groundView.configureRunner1Layer(with: response.1?.data.base1?.uniformNumber)

@@ -79,6 +79,10 @@ class GroundView: UIView {
         configureLayerForBases()
     }
     
+    @IBAction func pitchButtonPressed(_ sender: UIButton) {
+        delegate?.pitch()
+    }
+    
     func configure(inningInfo: String) {
         self.inning.text = inningInfo
     }
@@ -145,6 +149,7 @@ class GroundView: UIView {
     }
     
     private func configureHomePlateLayer() {
+        homePlateLayer.areAnimationsEnabled = false
         homePlateLayer.frame = CGRect(x: bounds.midX - Constants.HomePlate.bottomSquareLength / 2,
                                       y: bounds.maxY - (Constants.InfieldSquare.padding / 2) - Constants.HomePlate.topTriangleHeight - Constants.HomePlate.bottomSquareLength,
                                       width: Constants.HomePlate.bottomSquareLength,
@@ -177,32 +182,33 @@ class GroundView: UIView {
         updateUniformNumber(for: batterLayer, with: number)
     }
     
-    func configureRunnerLayer(in position: CGPoint, with number: Int?) {
-        configureLayer(for: dummyRunner1Layer, position: position)
-        configureLayer(for: runner1Layer, position: position)
-        updateUniformNumber(for: dummyRunner1Layer, with: number)
-        updateUniformNumber(for: runner1Layer, with: number)
+    func configure(runnerLayer: CAShapeLayer, dummyLayer: CAShapeLayer, in position: CGPoint, with number: Int?) {
+        configureLayer(for: dummyLayer, position: position)
+        configureLayer(for: runnerLayer, position: position)
+        updateUniformNumber(for: dummyLayer, with: number)
+        updateUniformNumber(for: runnerLayer, with: number)
     }
     
     func configureRunner1Layer(with number: Int?) {
         let position = CGPoint(x: bounds.maxX - Constants.InfieldSquare.padding - Constants.Runner.diameter / 2,
                               y: bounds.midY - (Constants.Runner.diameter / 2))
-        configureRunnerLayer(in: position, with: number)
+        configure(runnerLayer: runner1Layer, dummyLayer: dummyRunner1Layer, in: position, with: number)
     }
     
     func configureRunner2Layer(with number: Int?) {
         let position = CGPoint(x: bounds.midX - Constants.Runner.diameter / 2,
                                y: bounds.minY + Constants.InfieldSquare.padding - (Constants.Runner.diameter / 2))
-        configureRunnerLayer(in: position, with: number)
+        configure(runnerLayer: runner2Layer, dummyLayer: dummyRunner2Layer, in: position, with: number)
     }
     
     func configureRunner3Layer(with number: Int?) {
         let position = CGPoint(x: bounds.minX + Constants.InfieldSquare.padding - Constants.Runner.diameter / 2,
                                y: bounds.midY - (Constants.Runner.diameter / 2))
-        configureRunnerLayer(in: position, with: number)
+        configure(runnerLayer: runner3Layer, dummyLayer: dummyRunner3Layer, in: position, with: number)
     }
     
     private func configureLayer(for runner: CAShapeLayer, position: CGPoint) {
+        runner.areAnimationsEnabled = false
         runner.frame = CGRect(origin: position,
                               size: CGSize(width: Constants.Runner.diameter,
                                            height: Constants.Runner.diameter))
@@ -217,7 +223,7 @@ class GroundView: UIView {
         runner.path = circlePath.cgPath
     }
     
-    func updateUniformNumber(for batterLayer: CAShapeLayer, with number: Int) {
+    private func updateUniformNumber(for batterLayer: CAShapeLayer, with number: Int) {
         batterLayer.sublayers = nil
         let uniformNumberlayer = CATextLayer()
         uniformNumberlayer.frame = batterLayer.bounds
@@ -229,7 +235,7 @@ class GroundView: UIView {
         batterLayer.addSublayer(uniformNumberlayer)
     }
     
-    func updateUniformNumber(for runnerLayer: CAShapeLayer, with number: Int?) {
+    private func updateUniformNumber(for runnerLayer: CAShapeLayer, with number: Int?) {
         runnerLayer.sublayers = nil
         guard let number = number else {
             runnerLayer.isHidden = true
@@ -306,11 +312,7 @@ class GroundView: UIView {
         return baseLayer
     }
     
-    @IBAction func pitchButtonPressed(_ sender: UIButton) {
-        delegate?.pitch()
-    }
-    
-    func move() {
+    func moveRunners() {
         hideRunners()
         move(runner: dummyBatterLayer)
         move(runner: dummyRunner1Layer)
@@ -318,7 +320,7 @@ class GroundView: UIView {
         move(runner: dummyRunner3Layer)
     }
     
-    func hideRunners() {
+    private func hideRunners() {
         batterLayer.isHidden = true
         runner1Layer.isHidden = true
         runner2Layer.isHidden = true
@@ -332,7 +334,7 @@ class GroundView: UIView {
         runner3Layer.isHidden = false
     }
     
-    func move(runner: CAShapeLayer) {
+    private func move(runner: CAShapeLayer) {
         runner.isHidden = false
         let homePlatePosition = CGPoint(x: bounds.midX, y: bounds.maxY - Constants.InfieldSquare.padding)
         let firstBasePosition = CGPoint(x: bounds.maxX - Constants.InfieldSquare.padding, y: bounds.midY)
@@ -364,7 +366,7 @@ class GroundView: UIView {
         let animation = CABasicAnimation(keyPath: #keyPath(CALayer.position))
         animation.fromValue = initialPosition
         animation.toValue = finalPosition
-        animation.duration = 2.5
+        animation.duration = 1.5
         runner.add(animation, forKey: nil)
         CATransaction.commit()
     }
