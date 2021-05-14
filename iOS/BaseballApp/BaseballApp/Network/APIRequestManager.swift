@@ -12,16 +12,17 @@ class APIRequestManager {
     
     private let decoder = JSONDecoder()
     
-    private func createRequest(url: URL, method: HTTPMethod, httpBody: Data?) -> URLRequest {
+    private func createRequest(url: URL, method: HTTPMethod, httpBody: Data?, authorization: String?) -> URLRequest {
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
         request.httpBody = httpBody
+        request.setValue(authorization, forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         return request
     }
   
-    func fetch<T: Decodable>(url: URL, method: HTTPMethod, httpBody: Data? = nil) -> AnyPublisher<T, Error> {
-        let request = createRequest(url: url, method: method, httpBody: httpBody)
+    func fetch<T: Decodable>(url: URL, method: HTTPMethod, httpBody: Data? = nil, authorization: String? = nil) -> AnyPublisher<T, Error> {
+        let request = createRequest(url: url, method: method, httpBody: httpBody, authorization: authorization)
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         return URLSession.shared.dataTaskPublisher(for: request)
             .tryMap() { element -> Data in
@@ -31,6 +32,7 @@ class APIRequestManager {
                 switch httpResponse.statusCode {
                 case 200: print("success")
                 case 401: print("401 - bad request")
+                    throw CustomError.badRequest
                 default: break
                 }
                 return element.data

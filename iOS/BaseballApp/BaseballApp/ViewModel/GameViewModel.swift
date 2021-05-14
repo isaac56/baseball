@@ -17,6 +17,7 @@ class GameViewModel {
     @Published var isBatterChanged: Bool = false
     let gameUseCase = GameUseCase()
     var cancelBag = Set<AnyCancellable>()
+    var completionHandler: ((CustomError) -> Void)?
     
     func load() {
         guard let url = Endpoint.url(path: Endpoint.Path.gameStatus) else { return }
@@ -26,7 +27,7 @@ class GameViewModel {
             case .finished:
                 break
             case .failure(let error):
-                print(error.localizedDescription)
+                self.completionHandler?(error as! CustomError)
             }
         } receiveValue: { [weak self] (response) in
             self?.game = response
@@ -74,3 +75,16 @@ class GameViewModel {
         return convertedRole
     }
 }
+
+enum CustomError: Error {
+    case badRequest
+    
+    func handle() -> Void {
+        switch self {
+        case .badRequest:
+            break
+        }
+    }
+}
+
+

@@ -27,16 +27,17 @@ class GameUseCase {
     }
     
     let apiRequestManager = APIRequestManager()
+    let authorization = UserDefaults.standard.string(forKey: "jwt")
     
     func start(url: URL) -> AnyPublisher<GameResponse, Error> {
-        return apiRequestManager.fetch(url: url, method: .get)
+        return apiRequestManager.fetch(url: url, method: .get, authorization: authorization)
     }
     
     func pitch(url: URL) -> AnyPublisher<PitchResponse, Error> {
         let randomResult = PitchResult.allCases.randomElement()?.description
         let result = ["pitch_result": randomResult]
         let data = try! JSONSerialization.data(withJSONObject: result, options: .prettyPrinted)
-        return apiRequestManager.fetch(url: url, method: .post, httpBody: data)
+        return apiRequestManager.fetch(url: url, method: .post, httpBody: data, authorization: authorization)
     }
 }
 

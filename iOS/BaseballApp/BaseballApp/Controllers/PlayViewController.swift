@@ -24,6 +24,13 @@ class PlayViewController: UIViewController {
     var viewModel: GameViewModel = GameViewModel()
     var cancelBag = Set<AnyCancellable>()
     
+    lazy var handler: (CustomError) -> Void = {
+        switch $0 {
+        case .badRequest:
+            self.moveToLogin()
+        }
+    }
+    
     private let pitcherHistoryTableView: UITableView = {
         let tableView = UITableView()
         tableView.rowHeight = Constant.tableRowHeight
@@ -33,6 +40,7 @@ class PlayViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.completionHandler = handler
         header?.frame = scoreHeaderView.bounds
         guard let header = header else { return }
         scoreHeaderView.addSubview(header)
@@ -133,5 +141,17 @@ extension PlayViewController: UITableViewDataSource {
 extension PlayViewController: GroundViewDelegate {
     func pitch() {
         viewModel.requestPitch()
+    }
+}
+
+extension PlayViewController {
+    func moveToLogin() {
+        DispatchQueue.main.async { [weak self] in
+            guard let login = self?.storyboard?.instantiateViewController(identifier: "LoginViewController") else {
+                return
+            }
+            login.modalPresentationStyle = .fullScreen
+            self?.present(login, animated: true)
+        }
     }
 }

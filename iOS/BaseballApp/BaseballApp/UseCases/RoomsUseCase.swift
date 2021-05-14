@@ -10,6 +10,7 @@ import Combine
 
 class RoomsUseCase {
     let apiRequestManager = APIRequestManager()
+    let authorization = UserDefaults.standard.string(forKey: "jwt")
     
     func start(url: URL) -> AnyPublisher<RoomResponse, Error> {
         return apiRequestManager.fetch(url: url, method: .get)
@@ -18,7 +19,7 @@ class RoomsUseCase {
     func join(url: URL, gameId: Int, venue: Venue) -> AnyPublisher<RoomResponse, Error> {
         let data: [String: Any] = ["game_id": gameId, "my_venue": venue.rawValue]
         let json = try! JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
-        return apiRequestManager.fetch(url: url, method: .post, httpBody: json)
+        return apiRequestManager.fetch(url: url, method: .post, httpBody: json, authorization: authorization)
     }
 }
 

@@ -46,6 +46,13 @@ class LoginViewController: UIViewController {
                     return
                 }
                 UserDefaults.standard.set(jwt, forKey: "jwt")
+                print(jwt)
+            }
+            // access token 발급 완료 lobby로 보내주기
+            DispatchQueue.main.async {
+                guard let lobby = self.storyboard?.instantiateViewController(identifier: "LobbyViewController") else { return }
+                lobby.modalPresentationStyle = .fullScreen
+                self.present(lobby, animated: true)
             }
         }).resume()
     }
