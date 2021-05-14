@@ -16,17 +16,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fHn-hu-CiM">
-                                <rect key="frame" x="157" y="433" width="100" height="30"/>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fHn-hu-CiM">
+                                <rect key="frame" x="147" y="433" width="120" height="30"/>
                                 <color key="backgroundColor" systemColor="systemGreenColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="gt6-tV-FLq">
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="10"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </constraint>
+                                    <constraint firstAttribute="height" constant="30" id="tgh-Yp-5az"/>
+                                    <constraint firstAttribute="width" constant="120" id="wIj-W0-sGT"/>
                                 </constraints>
                                 <state key="normal" title="Github Login">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -39,8 +34,10 @@
                         <viewLayoutGuide key="safeArea" id="PmN-v2-2Jj"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="fHn-hu-CiM" firstAttribute="centerX" secondItem="PnQ-nk-eLt" secondAttribute="centerX" id="Cmm-bL-7Qf"/>
                             <constraint firstItem="fHn-hu-CiM" firstAttribute="centerX" secondItem="PnQ-nk-eLt" secondAttribute="centerX" id="Wmm-Gx-CI7"/>
                             <constraint firstItem="fHn-hu-CiM" firstAttribute="centerY" secondItem="PnQ-nk-eLt" secondAttribute="centerY" id="p8b-Pd-2sc"/>
+                            <constraint firstItem="fHn-hu-CiM" firstAttribute="centerY" secondItem="PnQ-nk-eLt" secondAttribute="centerY" id="upr-tZ-sfv"/>
                         </constraints>
                     </view>
                 </viewController>

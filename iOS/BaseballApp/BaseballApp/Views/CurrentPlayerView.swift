@@ -15,10 +15,6 @@ class CurrentPlayerView: UIView {
     @IBOutlet weak var batterStatus: UILabel!
     @IBOutlet weak var isBatter: UIImageView!
     
-    enum Role {
-        static let DEFENSE = "DEFENSE"
-    }
-    
     func configure(pitcher: Player, status: String) {
         self.pitcher.text = pitcher.name
         self.pitcherStatus.text = status
@@ -30,7 +26,7 @@ class CurrentPlayerView: UIView {
     }
     
     func configure(playerRole: String) {
-        if playerRole == Role.DEFENSE {
+        if playerRole == Role.defense.rawValue {
             isBatter.isHidden = true
             isPitcher.isHidden = false
         } else {
@@ -38,4 +34,9 @@ class CurrentPlayerView: UIView {
             isPitcher.isHidden = true
         }
     }
+}
+
+enum Role: String {
+    case defense = "DEFENSE"
+    case attack = "ATTACK"
 }

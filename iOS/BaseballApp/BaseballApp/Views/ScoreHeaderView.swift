@@ -26,4 +26,14 @@ class ScoreHeaderView: UIView {
     func configureHome(score: Int) {
         homeTeamScore.text = "\(score)"
     }
+    
+    func configure(awayTeam: Team) {
+        if awayTeam.role == Role.attack.rawValue {
+            self.awayTeamName.textColor = .systemRed
+            self.homeTeamName.textColor = .black
+        } else {
+            self.homeTeamName.textColor = .systemRed
+            self.awayTeamName.textColor = .black
+        }
+    }
 }

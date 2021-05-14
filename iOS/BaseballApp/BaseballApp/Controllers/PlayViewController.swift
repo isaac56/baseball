@@ -51,6 +51,7 @@ class PlayViewController: UIViewController {
             .sink { [weak self] response in
                 guard let game = response?.data else { return }
                 guard let strongSelf = self else { return }
+                strongSelf.header?.configure(awayTeam: game.awayTeam)
                 strongSelf.header?.configureNames(with: game.awayTeam.name, game.homeTeam.name)
                 strongSelf.header?.configureAway(score: game.awayTeam.score)
                 strongSelf.header?.configureHome(score: game.homeTeam.score)

@@ -46,8 +46,8 @@ class ScoreViewController: UIViewController {
                 strongSelf.segmentedTeam.setTitle(data?.homeTeam.teamName, forSegmentAt: 1)
                 strongSelf.awayTeamName.text = data?.awayTeam.teamName
                 strongSelf.homeTeamName.text = data?.homeTeam.teamName
-                strongSelf.setScore(for: strongSelf.homeScoreStackView, of: data?.awayTeam.scores)
-                strongSelf.setScore(for: strongSelf.awayScoreStackView, of: data?.homeTeam.scores)
+                strongSelf.setScore(for: strongSelf.awayScoreStackView, of: data?.awayTeam.scores)
+                strongSelf.setScore(for: strongSelf.homeScoreStackView, of: data?.homeTeam.scores)
                 strongSelf.items = data?.awayTeam.battingHistory ?? []
                 strongSelf.calculateTotalAway()
                 strongSelf.updateSnapshot()

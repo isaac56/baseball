@@ -52,7 +52,7 @@ extension LobbyViewController: UITableViewDelegate {
         let menu = UIAlertController(title: nil, message: "참가할 팀을 고르세요", preferredStyle: .actionSheet)
 
         let chooseAway = UIAlertAction(title: data.awayTeam, style: .default) { (_) in
-            self.viewModel.join(id: data.id, venue: .home) { [weak self] in
+            self.viewModel.join(id: data.id, venue: .away) { [weak self] in
                 DispatchQueue.main.async {
                     vc.modalPresentationStyle = .fullScreen
                     self?.present(vc, animated: true)
