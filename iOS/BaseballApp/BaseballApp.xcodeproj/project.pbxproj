@@ -31,6 +31,7 @@
 		E4329A23264530BF00C16DDD /* CountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4329A22264530BF00C16DDD /* CountView.swift */; };
 		E4329A2526479FFA00C16DDD /* UIView+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4329A2426479FFA00C16DDD /* UIView+Identifier.swift */; };
 		E43B2614264CF470006FD6FB /* RecordCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43B2613264CF470006FD6FB /* RecordCellViewModel.swift */; };
+		E43B2616264DFEA0006FD6FB /* CALayer+SetAnimationAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43B2615264DFEA0006FD6FB /* CALayer+SetAnimationAvailability.swift */; };
 		E4BE320026412390006E294A /* GroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BE31FF26412390006E294A /* GroundView.swift */; };
 		E4BE32022641239A006E294A /* GroundView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4BE32012641239A006E294A /* GroundView.xib */; };
 		E4BE320426412604006E294A /* CurrentPlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4BE320326412604006E294A /* CurrentPlayerView.xib */; };
@@ -91,6 +92,7 @@
 		E4329A22264530BF00C16DDD /* CountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountView.swift; sourceTree = "<group>"; };
 		E4329A2426479FFA00C16DDD /* UIView+Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Identifier.swift"; sourceTree = "<group>"; };
 		E43B2613264CF470006FD6FB /* RecordCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCellViewModel.swift; sourceTree = "<group>"; };
+		E43B2615264DFEA0006FD6FB /* CALayer+SetAnimationAvailability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+SetAnimationAvailability.swift"; sourceTree = "<group>"; };
 		E4BE31FF26412390006E294A /* GroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroundView.swift; sourceTree = "<group>"; };
 		E4BE32012641239A006E294A /* GroundView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GroundView.xib; sourceTree = "<group>"; };
 		E4BE320326412604006E294A /* CurrentPlayerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurrentPlayerView.xib; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				D03CF094264281B300C00729 /* UseCases */,
 				D03CF098264281C100C00729 /* Network */,
 				E4329A2426479FFA00C16DDD /* UIView+Identifier.swift */,
+				E43B2615264DFEA0006FD6FB /* CALayer+SetAnimationAvailability.swift */,
 			);
 			path = BaseballApp;
 			sourceTree = "<group>";
@@ -420,6 +423,7 @@
 				E4BE321626425E7C006E294A /* RoomsUseCase.swift in Sources */,
 				D097D5BE264D04AD00E40EC5 /* GameHistoryUseCase.swift in Sources */,
 				D097D5C9264D04EC00E40EC5 /* BattingHistoryTableViewCell.swift in Sources */,
+				E43B2616264DFEA0006FD6FB /* CALayer+SetAnimationAvailability.swift in Sources */,
 				E4BE321426425D41006E294A /* RoomsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
