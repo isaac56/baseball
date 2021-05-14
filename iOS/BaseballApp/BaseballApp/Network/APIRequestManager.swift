@@ -12,7 +12,7 @@ class APIRequestManager {
     
     private let decoder = JSONDecoder()
     
-    private func createRequest(url: URL, method: HTTPMethod, httpBody: Data? = nil) -> URLRequest {
+    private func createRequest(url: URL, method: HTTPMethod, httpBody: Data?) -> URLRequest {
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
         request.httpBody = httpBody
@@ -21,7 +21,7 @@ class APIRequestManager {
     }
   
     func fetch<T: Decodable>(url: URL, method: HTTPMethod, httpBody: Data? = nil) -> AnyPublisher<T, Error> {
-        let request = createRequest(url: url, method: method)
+        let request = createRequest(url: url, method: method, httpBody: httpBody)
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         return URLSession.shared.dataTaskPublisher(for: request)
             .map(\.data)
