@@ -29,6 +29,19 @@ style: Title: 포맷팅, 빠진 세미콜론, 변수명 변경 등
 test: Title: 테스트코드와 관련된 변경 사항
 fix: Title: 버그 수정
 ```
+## 개발 우선순위
+1. 기본 기능 (Json을 받아서 UI 그려주고, 네트워크 요청하고 등등) (Authorization 은 임시로 넣어 놓고 사용자 구분)
+2. Web socket 연결 추가 (refresh 타이밍 알려 줄 수 있도록)
+3. Authorization으로 인증 및 로그인
+
+## Database 스키마 설계
+![](https://github.com/isaac56/baseball/blob/dev/BE/docs/database/Schema.png)
+
+## API 설계
+<https://documenter.getpostman.com/view/1562550/TzRRBTZ1>
+
+## OAuth Flow Chart
+![OAuth_flow](https://user-images.githubusercontent.com/56751259/117400886-7b83cb00-af3e-11eb-8ac0-6656c87c72b4.png)
 
 ## Wiki
 - [Link](https://github.com/isaac56/baseball/wiki)
@@ -37,4 +50,6 @@ fix: Title: 버그 수정
 <img width="300" alt="스크린샷 2021-05-07 오후 2 24 58" src="https://user-images.githubusercontent.com/75113784/117401823-382a5c00-af40-11eb-87d9-059f54028b23.png"><img width="300" alt="스크린샷 2021-05-07 오후 2 25 18" src="https://user-images.githubusercontent.com/75113784/117401818-36f92f00-af40-11eb-884e-ba81b2def54e.png"><img width="300" alt="스크린샷 2021-05-07 오후 2 25 23" src="https://user-images.githubusercontent.com/75113784/117401803-319be480-af40-11eb-840a-4419a5a31bf0.png">
 
 ## 게임 화면
-<img width="300" alt="Screen Shot 2021-05-07 at 4 36 56 PM" src="https://user-images.githubusercontent.com/56751259/117414839-92341d00-af52-11eb-946c-b18447d7af70.png"><img width="300" alt="Screen Shot 2021-05-07 at 4 24 25 PM" src="https://user-images.githubusercontent.com/56751259/117414828-8ea09600-af52-11eb-8ef6-8390d159921e.png">
+<img width="300" alt="스크린샷 2021-05-15 오후 4 01 41" src="https://user-images.githubusercontent.com/75113784/118351557-ac47ae00-b597-11eb-9e7c-0bcabfd22c40.png"><img width="300" alt="스크린샷 2021-05-15 오후 4 01 45" src="https://user-images.githubusercontent.com/75113784/118351552-a356dc80-b597-11eb-8f36-f83f2def9d6a.png">
+
+<img width="300" alt="스크린샷 2021-05-15 오후 4 02 13" src="https://user-images.githubusercontent.com/75113784/118351555-aa7dea80-b597-11eb-8441-e914801a22cd.png"><img width="300" alt="스크린샷 2021-05-15 오후 4 03 42" src="https://user-images.githubusercontent.com/75113784/118351556-abaf1780-b597-11eb-8825-0357f3b607ed.png">
